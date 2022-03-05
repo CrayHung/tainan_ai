@@ -1,0 +1,22 @@
+.grid-container{
+    display: grid;
+    grid-template-rows: 100vh auto;
+    /* background-color: black;
+    padding: 5px;
+    gap: 5px;   */
+  }
+  
+  .blank-container{
+    background-color: white;
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+  
+  .login-container{
+    background-color: white;
+    grid-column: 1 / 3;
+    display: flex;
+    justify-content: center; 
+  }

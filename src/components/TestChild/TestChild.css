@@ -1,0 +1,21 @@
+.img{
+  width:100vw;
+  height: 100vh;
+  padding: 5px;
+}
+.titleCloseBtn{
+  display: flex;
+  justify-content: flex-end;
+}
+.titleCloseBtn button{
+  background-color:transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+/*
+.modalContainer > img:hover {
+  width: 500px;
+  height: 200px;
+}
+*/

@@ -1,0 +1,12 @@
+.titleCloseBtn{
+
+  display: flex;
+  justify-content:flex-end;
+ 
+}
+.titleCloseBtn button{
+  background-color:honeydew;
+  border:lightcoral;
+  font-size: 50px;
+  cursor: pointer;
+}
