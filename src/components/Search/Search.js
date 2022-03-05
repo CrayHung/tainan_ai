@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import MyTable from '../Tablelist/MyTable';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import { serverUrl } from '../../auth/cfg';
 
 
 function Search() {
@@ -98,7 +99,8 @@ function Search() {
             console.log(Body)
             query(Body)
             function query(Body) {
-                let str = "http://192.168.191.10:9098/querybook/"
+                // let str = "http://192.168.191.10:9098/querybook/"
+                const str = serverUrl + "/querybook/";
                 fetch(str, {
                     method: "POST",
                     body: JSON.stringify(Body)

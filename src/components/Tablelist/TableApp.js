@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { serverUrl } from '../../auth/cfg';
 import MyTable from './MyTable';
 
 // import DBJson from "http://192.168.191.10:9098/book/";
@@ -19,7 +20,8 @@ function TableApp() {
 
   const getRequest = useCallback(() => {
     const getData = async () => {
-      const res = await fetch("http://192.168.191.10:9098/book");
+      // const res = await fetch("http://192.168.191.10:9098/book");
+      const res = await fetch(serverUrl + "/book/");
       const results = await res.json();
       setData(results);
     }

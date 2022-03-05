@@ -43,6 +43,7 @@ import { Pie } from 'react-chartjs-2';
 
 
 import DatePicker from 'react-datepicker';
+import { serverUrl } from '../../auth/cfg';
 
 
 function Test() {
@@ -89,7 +90,8 @@ const [showPie,setShowPie]=useState(false)
       }
       query(Body)
       function query(Body) {
-        let str = "http://192.168.191.10:9098/querybook/"
+        // let str = "http://192.168.191.10:9098/querybook/"
+        const str = serverUrl + "/querybook/";
         fetch(str, {
           method: "POST",
           body: JSON.stringify(Body)

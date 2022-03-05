@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import LoadJson from '../LoadJson/LoadJson';
+import { serverUrl } from '../../auth/cfg';
 
 
 export default function Select() {
@@ -41,7 +42,8 @@ export default function Select() {
             console.log(data)
             query(data)
             function query(Body) {
-                let str = "http://192.168.191.10:9098/querybook/"
+                // let str = "http://192.168.191.10:9098/querybook/";
+                const str = serverUrl + "/querybook/";
                 fetch(str, {
                     method: "POST",
                     body: JSON.stringify(Body)

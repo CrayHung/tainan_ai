@@ -4,6 +4,7 @@ import { Pie } from 'react-chartjs-2';
 import './Excel_Car.css'
 import Excel from '../Excel/Excel';
 import DatePicker from 'react-datepicker';
+import { serverUrl } from '../../auth/cfg';
 
 
 export default function Excel_Car() {
@@ -62,7 +63,8 @@ export default function Excel_Car() {
       console.log(Body)
       query(Body)
       function query(Body) {
-        let str = "http://192.168.191.10:9098/querybook/"
+        // let str = "http://192.168.191.10:9098/querybook/"
+        const str = serverUrl + "/querybook/"
         fetch(str, {
           method: "POST",
           body: JSON.stringify(Body)
