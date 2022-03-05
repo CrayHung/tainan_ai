@@ -1,44 +1,89 @@
-import React, { useState, useEffect } from 'react'
-import { carContext } from './createContext.js';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-
+import React, { useContext } from 'react';
+import { Routes, Route, useNavigate, Link } from "react-router-dom";
 import Search from './components/Search/Search.js';
-import Select from './components/Select/Select'
-
-import ExcelTable from './components/ExcelTable/ExcelTable'
-
+import Select from './components/Select/Select';
+import ExcelTable from './components/ExcelTable/ExcelTable';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
-
-import LoadJson from './components/LoadJson/LoadJson.js';
-
 import Test from './components/Test/Test.js';
 import ExcelCar from './components/Excel_Car/Excel_Car'
 import Excel_Type from './components/Excel_Type/Excel_Type.js';
-import Main from './components/Main/Main'
+import Main from './components/Main/Main';
+import Login from './web/Login';
+import { AuthContext, RequireAuth } from './auth/reducer';
 
 
 function App() {
-	let navigate = useNavigate();
+  const navigate = useNavigate();
 
-	return (
-		<>
+  const { state, dispatch } = useContext(AuthContext);
 
+  // 若按下Logout
+  const logout = () => {
+    dispatch({
+      type: "LOGOUT"
+    })
+  }
 
-			<Main />
-				<Routes>
-					<Route path="/select" element={<Select />} />
-					<Route path="/search" element={<Search />} />
-					<Route path="/exceltable" element={<ExcelTable />} />
-					<Route path="/excelcar" element={<ExcelCar />} />
-					<Route path="/exceltype" element={<Excel_Type />} />
-					<Route path="/test" element={<Test />} />
-				</Routes>
+  return (
+    <>
+      <div className='grid-container'>
+        <div className='header'>
+          <div className='header-container'>
+            <div className='header-title' ><img width={65} src='./image/Taiwan_Police_Logo.png' onClick={() => navigate("/")} />台南市警察局 科技執法管理系統</div>
 
-		</>
-	)
+            {/* <div className='header-logout'>登出</div> */}
 
+            {state.isAuthenticated && (
+              <Link className='header-logout' to="/login" onClick={logout}>登出</Link>
+            )}
+          </div>
+        </div>
+
+        <div className='main'>
+          {state.isAuthenticated && (
+            <Main />
+          )}
+          <Routes>
+            <Route path="/" element={
+              <RequireAuth>
+                <Select />
+              </RequireAuth>
+            } />
+            {/* <Route path="/select" element={<Select />} /> */}
+            <Route path="/search" element={
+            <RequireAuth>
+              <Search />
+            </RequireAuth>
+            } />
+            <Route path="/exceltable" element={
+            <RequireAuth>
+                <ExcelTable />
+            </RequireAuth>
+            } />
+            <Route path="/excelcar" element={
+            <RequireAuth>
+                <ExcelCar />
+            </RequireAuth>
+            } />
+            <Route path="/exceltype" element={
+            <RequireAuth>
+              <Excel_Type />
+            </RequireAuth>
+            } />
+            <Route path="/test" element={
+            <RequireAuth>
+              <Test />
+            </RequireAuth>
+            } />
+
+            {/* Login 允許未認證觀看 */}
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      </div>
+    </>
+  )
 }
 export default App;
