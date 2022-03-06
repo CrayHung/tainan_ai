@@ -180,7 +180,6 @@ console.log(cars)
 		//saveValues選擇要儲存在txt中的內容
 		const saveValues = {
 			CameraName: car.CameraName,
-			Event: car.Event,
 			EventName: car.EventName,
 			EventDatetime0: car.EventDatetime0,
 			CarType: car.CarType,
@@ -226,7 +225,7 @@ console.log(cars)
 
 		confirmedCars[index] = formValues
 		setCars(confirmedCars)
-
+/*
 		if (saveValues.Event === 1||saveValues.Event ==="違規紅燈直行、右轉及左轉偵測") saveValues.Event = "違規紅燈直行、右轉及左轉偵測"
 		else if (saveValues.Event === 2||saveValues.Event ==="不依行向專用車道行駛偵測") saveValues.Event = "不依行向專用車道行駛偵測"
 		else if (saveValues.Event === 3||saveValues.Event ==="機車行駛於禁行機慢車道偵測") saveValues.Event = "機車行駛於禁行機慢車道偵測"
@@ -236,7 +235,7 @@ console.log(cars)
 		else if (saveValues.Event === 7||saveValues.Event ==="車輛未禮讓行人偵測") saveValues.Event = "車輛未禮讓行人偵測"
 		else if (saveValues.Event === 8||saveValues.Event ==="違規(臨時)停車偵測") saveValues.Event = "違規(臨時)停車偵測"
 		else;
-
+*/
 		if (car.CarType === 0||car.CarType === 'person'||car.CarType==='行人')car.CarType = '行人'
 		else if (car.CarType ===1||car.CarType === 'car'||car.CarType==='汽車') car.CarType = '汽車'
 		else if (car.CarType === 2||car.CarType === 'motorbike'||car.CarType==='機車') car.CarType = '機車'
@@ -251,8 +250,8 @@ console.log(cars)
 		var temp_result2 = temp_result1.replace("}", "")
 		var temp_result3 = temp_result2.replace("CameraName", "攝影機")
 		var temp_result4 = temp_result3.replace("RoadName", "路名")
-		var temp_result5 = temp_result4.replace("Event", "違規種類")
-		var temp_result6 = temp_result5.replace("EventName", "違規事件")
+		//var temp_result5 = temp_result4.replace("Event", "違規種類")
+		var temp_result6 = temp_result4.replace("EventName", "違規事件")
 		var temp_result7 = temp_result6.replace("EventDatetime0", "違規日期")
 		var temp_result8 = temp_result7.replace("CarType", "車種")
 		var temp_result9 = temp_result8.replace("PlateNumber", "車號")

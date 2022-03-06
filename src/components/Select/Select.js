@@ -21,14 +21,14 @@ export default function Select() {
 
     let str = ''
     if (value === '0') str = 0
-    else if (value === '1') str = 1
-    else if (value === '2') str = 2
-    else if (value === '3') str = 3
-    else if (value === '4') str = 4
-    else if (value === '5') str = 5
-    else if (value === '6') str = 6
-    else if (value === '7') str = 7
-    else if (value === '8') str = 8
+    else if (value === '1') str = 2
+    else if (value === '2') str = 4
+    else if (value === '3') str = 7
+    else if (value === '4') str = 8
+    else if (value === '5') str = 10
+    else if (value === '6') str = 11
+    else if (value === '7') str = 9
+    else if (value === '8') str = 3
     else;
 
     /*
