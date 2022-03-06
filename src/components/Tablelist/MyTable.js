@@ -93,7 +93,7 @@ export default function MyTable(props) {
 			<tr key={index} >
 				<td>{value.ID}</td>
 				<td>{value.CameraName}</td>
-				<td>{value.Event}</td>
+				{/*<td>{value.Event}</td>*/}
 				<td>{value.EventName}</td>
 				<td>{value.EventDatetime0}</td>
 				<td>{value.CarType}</td>
@@ -214,7 +214,7 @@ export default function MyTable(props) {
 					<tr>
 						<th>ID</th>
 						<th>攝影機</th>
-						<th>事件</th>
+						{/*<th>事件</th>*/}
 						<th>事件名稱</th>
 						<th>時間</th>
 						<th>車種</th>

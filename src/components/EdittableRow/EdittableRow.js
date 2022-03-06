@@ -28,8 +28,8 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
     return (
         <tr>
             <td>{editFormData.ID}</td>
-            {/*<td>{editFormData.CameraName}</td>*/}
-            <td>{editFormData.Event}</td>
+            <td>{editFormData.CameraName}</td>
+            {/*<td>{editFormData.Event}</td>*/}
             <td>{editFormData.EventName}</td>
             <td>{editFormData.EventDatetime0} </td>
             <td><ShowImage props={car.ImgName4} /></td>

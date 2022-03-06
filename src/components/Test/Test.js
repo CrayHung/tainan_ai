@@ -36,26 +36,80 @@ console.log('date2='+date2)
 console.log(date2.toLocaleDateString() )
  
 */
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-
-
 import DatePicker from 'react-datepicker';
 
-function Test() {
 
-  const data={"p":"2022-03-03T00:00:00"}
-  function handleTimeChange(date){
-    const time = date.replace("T", " ")
-    return time
+
+function Test() {
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
+
+  function handleTimeChange(date) {
+    let dataValues = [
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+    ];
+    let str = ''
+    let tmp_str = ''
+    let tmp_date = dataValues[2]
+    let tmp_month = dataValues[1]
+
+    if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+    if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T00:00:00'
+    str = tmp_str.toString()
+    setStart(str)
+
   }
-  let tmp = handleTimeChange(data.p)
-  console.log(tmp)  
+
+  function handleTimeChange2(date) {
+    let dataValues = [
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+    ];
+    let str = ''
+    let tmp_str = ''
+    let tmp_date = dataValues[2]
+    let tmp_month = dataValues[1]
+
+    if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+    if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
+    str = tmp_str.toString()
+
+    setEnd(str)
+  }
 
   return (
-    <>
-    </>
-  )
+      <>
+      <table>
+        <tr>
+          <td>
+            <h5>起始日期:(不可為當前日期)</h5>
+            <DatePicker
+              selected={startDate}
+              onSelect={(date) => handleTimeChange(date)}
+              onChange={(date) => setStartDate(date)}
+            ></DatePicker>
+          </td>
+          <td>
+            <h5>結束日期:(不可為當前日期)</h5>
+            <DatePicker
+              selected={endDate}
+              onSelect={(date) => handleTimeChange2(date)}
+              onChange={(date) => setEndDate(date)}
+            ></DatePicker>
+          </td>
+        </tr>
+        </table>
+        </>
+        )
 }
-export default Test
+        export default Test

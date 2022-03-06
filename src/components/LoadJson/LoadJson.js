@@ -502,8 +502,8 @@ console.log(cars)
 						<thead>
 							<tr>
 								<th>ID</th>
-								{/*<th>攝影機</th>*/}
-								<th>事件</th>
+								<th>攝影機</th>
+								{/*<th>事件</th>*/}
 								<th>事件名稱</th>
 								<th>時間</th>
 								<th>縮圖1</th>
