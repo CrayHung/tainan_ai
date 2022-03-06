@@ -147,7 +147,9 @@ export default function Excel_Car() {
 
 
   function handlePie(data_type) {
+    console.log('data_type')
     console.log(data_type)
+    console.log('cars')
     console.log(cars)
     ChartJS.register(ArcElement, Tooltip, Legend);
     const piedata = {
@@ -185,6 +187,14 @@ export default function Excel_Car() {
     setShowTable(true)
     setShowExcel(true)
   }
+
+  const options={
+    maintainAspectRatio: false,
+    responsive: false,
+    //responsive:true,
+    //maintainAspectRatio: true,
+    legend: { display: false }
+}
 
   return (
     <>
@@ -230,14 +240,12 @@ export default function Excel_Car() {
       {showExcel ? (<Excel fname={fname} />) : null}
 
       {showPie ?(
+        <div>
       <Pie
           data={pieData}
-          width={100} height={100} 
-          options={{
-            legend: { display: false },
-            maintainAspectRatio: true
-        }}
-        />
+          width={540} height={480} 
+          options={options}
+        /></div>
       ) : null}
     </>
   )
