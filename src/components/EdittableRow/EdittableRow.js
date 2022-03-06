@@ -14,7 +14,7 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
     else if(car.CarType===5||car.CarType==='卡車') car.CarType='卡車'
     else if(car.CarType===6||car.CarType==='腳踏車') car.CarType='腳踏車'
     else ;
-
+/*
     function convertUTCDateToLocalDate(date) {
         var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
         var offset = date.getTimezoneOffset() / 60;
@@ -24,13 +24,14 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
     }
     var date = convertUTCDateToLocalDate(new Date(car.EventDatetime));
     //date.toLocaleString()
-
+*/
     return (
         <tr>
             <td>{editFormData.ID}</td>
             {/*<td>{editFormData.CameraName}</td>*/}
+            <td>{editFormData.Event}</td>
             <td>{editFormData.EventName}</td>
-            <td>{date.toLocaleString()} </td>
+            <td>{editFormData.EventDatetime0} </td>
             <td><ShowImage props={car.ImgName4} /></td>
             <td><ShowImage props={car.ImgName5} /></td>
             <td><ShowVideo car={car} /></td>

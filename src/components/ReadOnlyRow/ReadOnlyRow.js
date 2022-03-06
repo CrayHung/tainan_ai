@@ -22,7 +22,7 @@ export default function ReadOnlyRow({ car, handleEditclick, handleDeleteClick, h
     else if(car.CarType===5||car.CarType==='腳踏車') car.CarType='腳踏車'
     else ;
 */
-
+/*
 function convertUTCDateToLocalDate(date) {
     var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
     var offset = date.getTimezoneOffset() / 60;
@@ -31,7 +31,7 @@ function convertUTCDateToLocalDate(date) {
     return newDate;   
 }
 var date = convertUTCDateToLocalDate(new Date(car.EventDatetime0));
-
+*/
 let imagesrc5 = car.ImgName5
 let imagesrc4 = car.ImgName4
 
@@ -40,8 +40,10 @@ let imagesrc4 = car.ImgName4
             <tr>
                 <td>{car.ID}</td>
                 {/*<td>{car.CameraName}</td>*/}
+                <td>{car.Event}</td>
                 <td>{car.EventName}</td>
-                <td>{date.toLocaleString()}</td>
+                {/*<td>{date.toLocaleString()}</td>*/}
+                <td>{car.EventDatetime0}</td>
                 <td ><ShowImage props={imagesrc4}/></td>
                 <td ><ShowImage props={imagesrc5}/></td>
                 {/*<td><ShowImage car={car}/></td>*/}

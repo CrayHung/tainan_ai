@@ -2,6 +2,8 @@ import { Table, Pagination } from 'react-bootstrap';
 import React, { useContext } from 'react';
 import { ActiveContext } from '../../.';
 
+import './MyTable.css'
+
 export default function MyTable(props) {
 	/* parameter */
 	const tableData = props.tableData;
@@ -77,7 +79,7 @@ export default function MyTable(props) {
 		else if (value.CameraName === 24) value.CameraName = global_cameraname[24]
 		else ;
 
-
+/*
 		function convertUTCDateToLocalDate(date) {
 			var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 			var offset = date.getTimezoneOffset() / 60;
@@ -86,14 +88,14 @@ export default function MyTable(props) {
 			return newDate;   
 		}
 		var date = convertUTCDateToLocalDate(new Date(value.EventDatetime0));
-
+*/
 		return (
-			<tr key={index}>
+			<tr key={index} >
 				<td>{value.ID}</td>
 				<td>{value.CameraName}</td>
 				<td>{value.Event}</td>
 				<td>{value.EventName}</td>
-				<td>{date.toLocaleString()}</td>
+				<td>{value.EventDatetime0}</td>
 				<td>{value.CarType}</td>
 				<td>{value.ImgName4}</td>
 				<td>{value.VideoName}</td>
@@ -206,7 +208,8 @@ export default function MyTable(props) {
 
 	return (
 		<>
-			<Table striped bordered hover>
+			{/*<Table striped bordered hover >*/}
+			<Table responsive bordered hover text-normal >
 				<thead>
 					<tr>
 						<th>ID</th>

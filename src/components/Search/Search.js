@@ -54,12 +54,15 @@ function Search() {
             date.getMonth() + 1,
             date.getDate(),
         ];
+        let str=''
         let tmp_str=''
-        if(dataValues[1]<10)
-        tmp_str = dataValues[0] + '-0' + dataValues[1] + '-' + dataValues[2] + 'T00:00:00'
-        else
-        tmp_str = dataValues[0] + '-' + dataValues[1] + '-' + dataValues[2] + 'T00:00:00'
-        let str = tmp_str.toString()
+        let tmp_date=dataValues[2]
+        let tmp_month=dataValues[1]
+
+        if(tmp_month<10) tmp_month = '0'+dataValues[1]
+        if(tmp_date<10) tmp_date = '0'+dataValues[2]
+        tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T00:00:00'
+        str = tmp_str.toString()
         setStart(str)
 
     }
@@ -70,12 +73,16 @@ function Search() {
             date.getMonth() + 1,
             date.getDate(),
         ];
+        let str=''
         let tmp_str=''
-        if(dataValues[1]<10)
-        tmp_str = dataValues[0] + '-0' + dataValues[1] + '-' + dataValues[2] + 'T23:59:59'
-        else
-        tmp_str = dataValues[0] + '-' + dataValues[1] + '-' + dataValues[2] + 'T23:59:59'
-        let str = tmp_str.toString()
+        let tmp_date=dataValues[2]
+        let tmp_month=dataValues[1]
+
+        if(tmp_month<10) tmp_month = '0'+dataValues[1]
+        if(tmp_date<10) tmp_date = '0'+dataValues[2]
+        tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T23:59:59'
+        str = tmp_str.toString()
+       
         setEnd(str)
     }
 

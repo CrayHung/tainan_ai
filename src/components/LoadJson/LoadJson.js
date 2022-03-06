@@ -7,6 +7,7 @@ import EdittableRow from '../EdittableRow/EdittableRow';
 
 import FileSaver from 'file-saver'
 import { serverUrl } from '../../auth/cfg';
+import './LoadJson.css'
 
 
 export default function LoadJson({cars , setCars}) {
@@ -45,8 +46,12 @@ export default function LoadJson({cars , setCars}) {
 		"25號: 北區東豐路與林森路路口-林森路往南車道"]
 
 	//const { cars, setCars } = useContext(carContext)
-	
-
+	/*function handleTimeChange(date){
+		const time = date.replace(/T/, " ")
+		return time
+	  }
+	  cars.EventDatetime0 = handleTimeChange(cars.EventDatetime0)
+*/
 console.log(cars)
 
 
@@ -124,7 +129,7 @@ console.log(cars)
 			BBwidth: car.BBwidth,
 			BBheight: car.BBheight
 		}
-
+/*
 		if (car.CarType === 0||car.CarType==='person'||car.CarType==='行人') car.CarType = 'person'
 		else if (car.CarType === 1||car.CarType==='car'||car.CarType==='汽車') car.CarType = 'car'
 		else if (car.CarType === 2||car.CarType==='motorbike'||car.CarType==='機車') car.CarType = 'motorbike'
@@ -132,7 +137,9 @@ console.log(cars)
 		else if (car.CarType === 4||car.CarType==='truck'||car.CarType==='卡車') car.CarType = 'truck'
 		else if (car.CarType === 5||car.CarType==='bike'||car.CarType==='腳踏車')car.CarType = 'bike'
 		else ;
+*/
 		//將時間轉成localDate
+		/*
 		function convertUTCDateToLocalDate(date) {
 			var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
 			var offset = date.getTimezoneOffset() / 60;
@@ -142,7 +149,7 @@ console.log(cars)
 		}
 		//上限時要將CreateAt改為EventDatetime0
 		var date = convertUTCDateToLocalDate(new Date(car.EventDatetime0));
-
+*/
 
 		if (car.CameraName === 0) car.CameraName = global_cameraname[0]
 		else if (car.CameraName === 1) car.CameraName = global_cameraname[1]
@@ -175,11 +182,11 @@ console.log(cars)
 			CameraName: car.CameraName,
 			Event: car.Event,
 			EventName: car.EventName,
-			EventDatetime0: date.toLocaleDateString(),
+			EventDatetime0: car.EventDatetime0,
 			CarType: car.CarType,
 			PlateNumber: car.PlateNumber
 		}
-
+/*
 		if (car.CarType === 0||car.CarType === 'person'||car.CarType==='行人')car.CarType = 0 
 		else if (car.CarType ===1||car.CarType === 'car'||car.CarType==='汽車') car.CarType = 1
 		else if (car.CarType === 2||car.CarType === 'motorbike'||car.CarType==='機車') car.CarType = 2
@@ -188,16 +195,16 @@ console.log(cars)
 		else if (car.CarType === 5||car.CarType==='bike'||car.CarType==='腳踏車')car.CarType =5
 		else ;
 
-		if (car.Event === 0||car.Event ==="違規紅燈直行、右轉及左轉偵測") car.Event = 0
-		else if (car.Event === 1||car.Event ==="不依行向專用車道行駛偵測") car.Event = 1
-		else if (car.Event === 2||car.Event ==="機車行駛於禁行機慢車道偵測") car.Event = 2
-		else if (car.Event === 3||car.Event ==="機慢車停等區車輛違規停放偵測") cars.Event = 3
-		else if (car.Event === 4||car.Event ==="未保持路口淨空違規偵測") car.Event = 4
-		else if (car.Event === 5||car.Event ==="跨越禁止變換車道線偵測") car.Event = 5
-		else if (car.Event === 6||car.Event ==="車輛未禮讓行人偵測") car.Event = 6
-		else if (car.Event === 7||car.Event ==="違規(臨時)停車偵測") car.Event = 7
+		if (car.Event === 1||car.Event ==="違規紅燈直行、右轉及左轉偵測") car.Event = 1
+		else if (car.Event === 2||car.Event ==="不依行向專用車道行駛偵測") car.Event = 2
+		else if (car.Event === 3||car.Event ==="機車行駛於禁行機慢車道偵測") car.Event = 3
+		else if (car.Event === 4||car.Event ==="機慢車停等區車輛違規停放偵測") cars.Event = 4
+		else if (car.Event === 5||car.Event ==="未保持路口淨空違規偵測") car.Event = 5
+		else if (car.Event === 6||car.Event ==="跨越禁止變換車道線偵測") car.Event = 6
+		else if (car.Event === 7||car.Event ==="車輛未禮讓行人偵測") car.Event = 7
+		else if (car.Event === 8||car.Event ==="違規(臨時)停車偵測") car.Event = 8
 		else;
-
+*/
 
 		//saveBackDBValues 用來放回存DB的資料
 		const saveBackDBValues = {
@@ -220,14 +227,14 @@ console.log(cars)
 		confirmedCars[index] = formValues
 		setCars(confirmedCars)
 
-		if (saveValues.Event === 0||saveValues.Event ==="違規紅燈直行、右轉及左轉偵測") saveValues.Event = "違規紅燈直行、右轉及左轉偵測"
-		else if (saveValues.Event === 1||saveValues.Event ==="不依行向專用車道行駛偵測") saveValues.Event = "不依行向專用車道行駛偵測"
-		else if (saveValues.Event === 2||saveValues.Event ==="機車行駛於禁行機慢車道偵測") saveValues.Event = "機車行駛於禁行機慢車道偵測"
-		else if (saveValues.Event === 3||saveValues.Event ==="機慢車停等區車輛違規停放偵測") saveValues.Event = "機慢車停等區車輛違規停放偵測"
-		else if (saveValues.Event === 4||saveValues.Event ==="未保持路口淨空違規偵測") saveValues.Event = "未保持路口淨空違規偵測"
-		else if (saveValues.Event === 5||saveValues.Event ==="跨越禁止變換車道線偵測") saveValues.Event = "跨越禁止變換車道線偵測"
-		else if (saveValues.Event === 6||saveValues.Event ==="車輛未禮讓行人偵測") saveValues.Event = "車輛未禮讓行人偵測"
-		else if (saveValues.Event === 7||saveValues.Event ==="違規(臨時)停車偵測") saveValues.Event = "違規(臨時)停車偵測"
+		if (saveValues.Event === 1||saveValues.Event ==="違規紅燈直行、右轉及左轉偵測") saveValues.Event = "違規紅燈直行、右轉及左轉偵測"
+		else if (saveValues.Event === 2||saveValues.Event ==="不依行向專用車道行駛偵測") saveValues.Event = "不依行向專用車道行駛偵測"
+		else if (saveValues.Event === 3||saveValues.Event ==="機車行駛於禁行機慢車道偵測") saveValues.Event = "機車行駛於禁行機慢車道偵測"
+		else if (saveValues.Event === 4||saveValues.Event ==="機慢車停等區車輛違規停放偵測") saveValues.Event = "機慢車停等區車輛違規停放偵測"
+		else if (saveValues.Event === 5||saveValues.Event ==="未保持路口淨空違規偵測") saveValues.Event = "未保持路口淨空違規偵測"
+		else if (saveValues.Event === 6||saveValues.Event ==="跨越禁止變換車道線偵測") saveValues.Event = "跨越禁止變換車道線偵測"
+		else if (saveValues.Event === 7||saveValues.Event ==="車輛未禮讓行人偵測") saveValues.Event = "車輛未禮讓行人偵測"
+		else if (saveValues.Event === 8||saveValues.Event ==="違規(臨時)停車偵測") saveValues.Event = "違規(臨時)停車偵測"
 		else;
 
 		if (car.CarType === 0||car.CarType === 'person'||car.CarType==='行人')car.CarType = '行人'
@@ -491,11 +498,13 @@ console.log(cars)
 		<div>
 			<form onSubmit={handleEditFormSubmit}>
 				<div className="able-responsive">
-					<table border="1" className="table align-middle table-striped text-nowrap">
+					{/*<table border="1" className="table align-middle table-striped text-normal">*/}
+					<table border="1" >
 						<thead>
 							<tr>
 								<th>ID</th>
 								{/*<th>攝影機</th>*/}
+								<th>事件</th>
 								<th>事件名稱</th>
 								<th>時間</th>
 								<th>縮圖1</th>

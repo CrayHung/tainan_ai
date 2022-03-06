@@ -1,0 +1,7 @@
+table{
+    border-collapse: collapse;
+    width: 770px; 	
+    /*自動斷行*/
+    word-wrap: break-word;
+    table-layout: fixed;
+}
