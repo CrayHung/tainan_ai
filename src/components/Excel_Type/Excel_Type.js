@@ -200,6 +200,13 @@ export default function Excel_Type() {
         setShowExcel(true)
     }
 
+    const options={
+        maintainAspectRatio: false,
+        responsive: false,
+        //responsive:true,
+        //maintainAspectRatio: true,
+        legend: { display: false }
+    }
     return (
         <>
         <table>
@@ -250,14 +257,12 @@ export default function Excel_Type() {
             {showExcel ? (<Excel fname={fname} />) : null}
 
             {showPie ? (
+                <div>
                 <Pie
                     data={pieData}
-                    width={100} height={100} 
-                    options={{
-                        legend: { display: false },
-                        maintainAspectRatio: true
-                    }}
-                />) : null}
+                    width={540} height={480} 
+                     options={options}
+                /></div>) : null}
 
         </>
     )
