@@ -32,15 +32,15 @@ export default function Excel_Car() {
       date.getMonth() + 1,
       date.getDate(),
     ];
-    let str=''
-        let tmp_str=''
-        let tmp_date=dataValues[2]
-        let tmp_month=dataValues[1]
+    let str = ''
+    let tmp_str = ''
+    let tmp_date = dataValues[2]
+    let tmp_month = dataValues[1]
 
-        if(tmp_month<10) tmp_month = '0'+dataValues[1]
-        if(tmp_date<10) tmp_date = '0'+dataValues[2]
-        tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T23:59:59'
-        str = tmp_str.toString()
+    if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+    if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
+    str = tmp_str.toString()
     setStart(str)
     setShowPie(false)
     setShowTable(false)
@@ -53,21 +53,21 @@ export default function Excel_Car() {
       date.getMonth() + 1,
       date.getDate(),
     ];
-    let str=''
-    let tmp_str=''
-    let tmp_date=dataValues[2]
-    let tmp_month=dataValues[1]
+    let str = ''
+    let tmp_str = ''
+    let tmp_date = dataValues[2]
+    let tmp_month = dataValues[1]
 
-    if(tmp_month<10) tmp_month = '0'+dataValues[1]
-    if(tmp_date<10) tmp_date = '0'+dataValues[2]
-    tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T23:59:59'
+    if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+    if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
     str = tmp_str.toString()
     setEnd(str)
     setShowPie(false)
     setShowTable(false)
     setShowExcel(false)
 
-    const handlefetch = async () => {
+    const fetchData = async () => {
 
       const Body = {
         "EventDatetime0": start,
@@ -85,25 +85,41 @@ export default function Excel_Car() {
         })
           .then(res => res.json())
           .catch(error => console.error('Error:', error))
-          .then(response => setTmpCars(response));
+          .then(response => {
+
+            const data = response.filter(function (item) {
+              return item.PlateNumber !== "NULL"
+            });
+            // setTmpCars(response)
+
+            for (let i = 0; i < data.length; i++) {
+              const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
+              data[i]["EventDatetime0"] = eTime0;
+            }
+            console.log(data);
+            setCars(data);
+          });
+
       }
     }
-    handlefetch()
+    fetchData();
+    //handlefetch()
+    //handlefilter()
+
+  }
+  /*
+  const handlefilter = async () => {
+    let arr = tmpcars.filter(function (item) {
+      return item.PlateNumber !== "NULL"
+    });
+    setCars(arr)
+    console.log(cars)
+  }
+
+  useEffect(() => {
     handlefilter()
-		
-	}
-	const handlefilter= async ()=> {
-		let arr = tmpcars.filter(function (item) {
-				return item.PlateNumber !== "NULL"
-			});
-			setCars(arr)
-            console.log(cars)
-	}
-
-	useEffect(()=>{
-		handlefilter()
-	},[tmpcars])
-
+  }, [tmpcars])
+*/
 
   function handleCount() {
     //console.log('cars in count')
@@ -188,28 +204,28 @@ export default function Excel_Car() {
     setShowExcel(true)
   }
 
-  const options={
+  const options = {
     maintainAspectRatio: false,
     responsive: false,
     //responsive:true,
     //maintainAspectRatio: true,
     legend: { display: false }
-}
+  }
 
   return (
     <>
       <table>
-            <td><h5>起始日期:(不可為當前日期)<DatePicker
-                selected={startDate}
-                onSelect={(date) => handleTimeChange(date)}
-                onChange={(date) => setStartDate(date)}
-            ></DatePicker></h5></td>
-            <td><h5>結束日期:(不可為當前日期) <DatePicker
-                selected={endDate}
-                onSelect={(date) => handleTimeChange2(date)}
-                onChange={(date) => setEndDate(date)}
-            ></DatePicker></h5></td>
-        </table>
+        <td><h5>起始日期:(不可為當前日期)<DatePicker
+          selected={startDate}
+          onSelect={(date) => handleTimeChange(date)}
+          onChange={(date) => setStartDate(date)}
+        ></DatePicker></h5></td>
+        <td><h5>結束日期:(不可為當前日期) <DatePicker
+          selected={endDate}
+          onSelect={(date) => handleTimeChange2(date)}
+          onChange={(date) => setEndDate(date)}
+        ></DatePicker></h5></td>
+      </table>
 
       {showTable ? (
         <table id="tblExport" >
@@ -239,13 +255,13 @@ export default function Excel_Car() {
 
       {showExcel ? (<Excel fname={fname} />) : null}
 
-      {showPie ?(
+      {showPie ? (
         <div>
-      <Pie
-          data={pieData}
-          width={540} height={480} 
-          options={options}
-        /></div>
+          <Pie
+            data={pieData}
+            width={540} height={480}
+            options={options}
+          /></div>
       ) : null}
     </>
   )

@@ -71,7 +71,7 @@ export default function Excel_Type() {
         setShowTable(false)
         setShowExcel(false)
 
-        const handlefetch = async () => {
+        const fetchData = async () => {
 
             const Body = {
                 "EventDatetime0": start,
@@ -89,13 +89,29 @@ export default function Excel_Type() {
                 })
                     .then(res => res.json())
                     .catch(error => console.error('Error:', error))
-                    .then(response => setTmpCars(response));
-            }
-        }
-        handlefetch()
-        handlefilter()
+                    .then(response => {
+
+                        const data = response.filter(function (item) {
+                          return item.PlateNumber !== "NULL"
+                        });
+                        // setTmpCars(response)
+            
+                        for (let i = 0; i < data.length; i++) {
+                          const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
+                          data[i]["EventDatetime0"] = eTime0;
+                        }
+                        console.log(data);
+                        setCars(data);
+                      });
+            
+                  }
+                }
+                fetchData();
+        //handlefetch()
+        //handlefilter()
 		
 	}
+    /*
 	const handlefilter= async ()=> {
 		let arr = tmpcars.filter(function (item) {
 				return item.PlateNumber !== "NULL"
@@ -108,7 +124,7 @@ export default function Excel_Type() {
 		handlefilter()
 	},[tmpcars])
 
-
+*/
     function handleCount() {
         //console.log('cars in count')
         //console.log(cars)

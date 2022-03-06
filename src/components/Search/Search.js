@@ -95,7 +95,7 @@ function Search() {
         let eventNo = parseInt(value[0])
         let checkNo = parseInt(value[1])
 
-        const handlefetch = async () => {
+        const fetchData = async () => {
 
             const Body = {
                 "Event" : eventNo,
@@ -114,15 +114,30 @@ function Search() {
                 })
                     .then(res => res.json())
                     .catch(error => console.error('Error:', error))
-                    .then(response => setTmpCars(response));
+                    .then(response => {
+
+                        const data = response.filter(function (item) {
+                          return item.PlateNumber !== "NULL"
+                        });
+                        // setTmpCars(response)
+            
+                        for (let i = 0; i < data.length; i++) {
+                          const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
+                          data[i]["EventDatetime0"] = eTime0;
+                        }
+                        console.log(data);
+                        setCars(data);
+                      });
+
             }
         }
-
-        handlefetch()
-        handlefilter()
+        fetchData();
+       // handlefetch()
+       // handlefilter()
 		
 	}
-	const handlefilter=()=> {
+	/*
+    const handlefilter=()=> {
 		let arr = tmpcars.filter(function (item) {
 				return item.PlateNumber !== "NULL"
 			});
@@ -132,6 +147,7 @@ function Search() {
 	useEffect(()=>{
 		handlefilter()
 	},[tmpcars])
+    */
     console.log(cars)
     return (
         <>
