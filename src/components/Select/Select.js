@@ -88,10 +88,10 @@ export default function Select() {
   // function timeChange() {
   //   console.log('tmpcars')
   //   console.log(tmpcars)
-    // for(let i=0;i<tmpcars.length;i++){
-    //     tmpcars[i].Eventdatetime0=tmpcars[i].Eventdatetime0.replace("T", " ")
-    // }
-    // handlefilter()
+  // for(let i=0;i<tmpcars.length;i++){
+  //     tmpcars[i].Eventdatetime0=tmpcars[i].Eventdatetime0.replace("T", " ")
+  // }
+  // handlefilter()
   // }
 
   // const handlefilter = async () => {
@@ -112,23 +112,31 @@ export default function Select() {
 
 
   return (
-    <div>
-      <select id="type_selector"
-        //onClick={() => navigate("/select")}
-        onChange={(val) => handle_type_selector(val.target.value)}>
-        {/*</select></div>onChange={(val) => handle(val.target.value)}>*/}
+    <div className='form-select select-dropdown'>
 
-        <option value="0">ALL</option>
-        <option value="1">1.違規紅燈直行、右轉及左轉偵測</option>
-        <option value="2">2.不依行向專用車道行駛偵測</option>
-        <option value="3">3.車行駛於禁行機慢車道偵測</option>
-        <option value="4">4.機慢車停等區車輛違規停放偵測</option>
-        <option value="5">5.未保持路口淨空違規偵測</option>
-        <option value="6">6.跨越禁止變換車道線偵測</option>
-        <option value="7">7.車輛未禮讓行人偵測</option>
-        <option value="8">8.違規(臨時)停車偵測</option>
-      </select>
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid container-select">
+          <span class="navbar-brand mb-0 h1">請選擇違規項目</span>
+          <div class="container-fluid container-select">
+            <select id="type_selector"
+              //onClick={() => navigate("/select")}
+              onChange={(val) => handle_type_selector(val.target.value)}>
+              {/*</select></div>onChange={(val) => handle(val.target.value)}>*/}
 
+              <option value="0">ALL</option>
+              <option value="1">1.違規紅燈直行、右轉及左轉偵測</option>
+              <option value="2">2.不依行向專用車道行駛偵測</option>
+              <option value="3">3.車行駛於禁行機慢車道偵測</option>
+              <option value="4">4.機慢車停等區車輛違規停放偵測</option>
+              <option value="5">5.未保持路口淨空違規偵測</option>
+              <option value="6">6.跨越禁止變換車道線偵測</option>
+              <option value="7">7.車輛未禮讓行人偵測</option>
+              <option value="8">8.違規(臨時)停車偵測</option>
+            </select>
+          </div>
+        </div>
+      </nav>
+      <a></a>
       <LoadJson cars={cars} setCars={setCars} />
 
     </div>
