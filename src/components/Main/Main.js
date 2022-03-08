@@ -29,8 +29,14 @@ export default function Main(value) {
 					<li className="nav-item ">
 						<a className="nav-link link-light" href="/search" role="button" aria-expanded="false" onClick={() => { setshowLoadjson(false); }}>違規查詢</a>
 					</li>
-					<li className="nav-item ">
-						<a className="nav-link link-light" href="/exceltable" role="button" aria-expanded="false" onClick={() => { setshowLoadjson(false); }}>統計報表</a>
+					<li class="nav-item dropdown">
+						<a class="nav-link link-light dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							統計報表
+						</a>
+						<ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+							<li><a class="dropdown-item" href="/exceltype">違規類型件數</a></li>
+							<li><a class="dropdown-item" href="/excelcar">違規車種件數</a></li>
+						</ul>
 					</li>
 				</ul>
 			</div>
