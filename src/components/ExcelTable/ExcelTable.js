@@ -20,6 +20,7 @@ export default function ExcelTable() {
             */}
             <button onClick={() => {navigate("/exceltype")}}>違規類型件數</button>
             <button onClick={() => {navigate("/excelcar")}}>違規車種件數</button>
+            <button onClick={() => {navigate("/excelcheck")}}>審查狀態</button>
 {/*
             {showType ? (
                 <Excel_Car />

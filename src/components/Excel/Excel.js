@@ -10,10 +10,11 @@ const htmlExportExcel = (fileExtension, fileName) => {
 
 
 export default function Excel(props) {
-
 const { fname } = props
-
 	return (
-				<button onClick={() => htmlExportExcel('xlsx', fname)}>下載excel</button>
+				<button onClick={() => htmlExportExcel('csv', fname)}>下載excel</button>
+
 	)
 }
+
+

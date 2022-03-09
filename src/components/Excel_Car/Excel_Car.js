@@ -39,7 +39,7 @@ export default function Excel_Car() {
 
     if (tmp_month < 10) tmp_month = '0' + dataValues[1]
     if (tmp_date < 10) tmp_date = '0' + dataValues[2]
-    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
+    tmp_str = dataValues[0] +'-'+tmp_month +'-'+tmp_date+'T00:00:00'
     str = tmp_str.toString()
     setStart(str)
     setShowPie(false)
@@ -58,20 +58,23 @@ export default function Excel_Car() {
     let tmp_date = dataValues[2]
     let tmp_month = dataValues[1]
 
-    if (tmp_month < 10) tmp_month = '0' + dataValues[1]
-    if (tmp_date < 10) tmp_date = '0' + dataValues[2]
-    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
+    if (tmp_month < 10) tmp_month = '0'+dataValues[1]
+    if (tmp_date < 10) tmp_date = '0'+dataValues[2]
+    tmp_str = dataValues[0] +'-'+ tmp_month+'-'+tmp_date+'T23:59:59'
     str = tmp_str.toString()
     setEnd(str)
-    setShowPie(false)
-    setShowTable(false)
-    setShowExcel(false)
+
+    //setShowPie(false)
+    //setShowTable(false)
+    //setShowExcel(false)
 
     const fetchData = async () => {
 
       const Body = {
         "EventDatetime0": start,
-        "EventDatetime1": str
+        "EventDatetime1": str,
+        "Event":0,
+        "Checked":2
       }
       console.log('Body')
       console.log(Body)
@@ -152,8 +155,22 @@ export default function Excel_Car() {
     count()
     handlePie(arr)
     setArrData(arr)
-    let fname = start + '_' + end
-    setFname(fname)
+
+
+        const start0 = start.replace("T", "")
+        const start1 = start0.replace("00:00:00", "")
+        const end0 = end.replace("T", "")
+        const end1 = end0.replace("23:59:59", "")
+        console.log('start1')
+        console.log(start1)
+        console.log('end1')
+        console.log(end1)
+
+
+        let tmp_fname = start1+ '_' + end1 +'違規車種統計表'
+        let fname = tmp_fname.replace(/-/gi, "")
+        console.log(fname)
+        setFname(fname)
   }
 
   useEffect(async () => {
@@ -253,7 +270,7 @@ export default function Excel_Car() {
         </table>
       ) : null}
 
-      {showExcel ? (<Excel fname={fname} />) : null}
+      {showExcel && (<Excel fname={fname} />) }
 
       {showPie ? (
         <div>

@@ -76,8 +76,37 @@ export default function Select() {
               const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
               data[i]["EventDatetime0"] = eTime0;
             }
-            console.log(data);
-            setCars(data);
+
+            //倒序排列
+            const tmp_arr = []
+            for (let i = 0; i < data.length; i++) {
+              tmp_arr[i] = data.pop()
+            }
+            /***********將特定的Event排除************* */            /************************ */
+            /*
+            const eventList = tmp_arr.map(item => Object.values(item)[6]);
+            const eventList2 = tmp_arr.map(item => Object.keys(item)[6]); //Event
+
+
+            console.log('排除前的陣列值=')
+            console.log(eventList)
+
+
+            for (let i = 0; i < eventList.length; i++) {
+              if (eventList[i] === 4) {
+                tmp_arr.splice(i, 1);
+                i--;
+              }
+            }
+            console.log('排除的event=4')
+            const eventList3 = tmp_arr.map(item => Object.values(item)[6]);
+            console.log('排除後的陣列值=')
+            console.log(eventList3)
+
+            */
+            /************************ */            /************************ */
+
+            setCars(tmp_arr);
           });
       }
     }

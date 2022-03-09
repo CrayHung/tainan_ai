@@ -36,6 +36,7 @@ export default function Main(value) {
 						<ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
 							<li><a class="dropdown-item" href="/exceltype">違規類型件數</a></li>
 							<li><a class="dropdown-item" href="/excelcar">違規車種件數</a></li>
+							<li><a class="dropdown-item" href="/excelcheck">審查狀態</a></li>
 						</ul>
 					</li>
 				</ul>

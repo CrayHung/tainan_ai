@@ -7,13 +7,41 @@ import ShowVideo from '../ShowVideo/ShowVideo'
 
 
 const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelClick }) => {
-    if(car.CarType===1||car.CarType==='行人') car.CarType='行人'
-    else if(car.CarType===2||car.CarType==='汽車') car.CarType='汽車'
-    else if(car.CarType===3||car.CarType==='機車') car.CarType='機車'
-    else if(car.CarType===4||car.CarType==='公車') car.CarType='公車'
-    else if(car.CarType===5||car.CarType==='卡車') car.CarType='卡車'
-    else if(car.CarType===6||car.CarType==='腳踏車') car.CarType='腳踏車'
+    if(car.CarType===0||car.CarType==='行人') car.CarType='行人'
+    else if(car.CarType===1||car.CarType==='汽車') car.CarType='汽車'
+    else if(car.CarType===2||car.CarType==='機車') car.CarType='機車'
+    else if(car.CarType===3||car.CarType==='公車') car.CarType='公車'
+    else if(car.CarType===4||car.CarType==='卡車') car.CarType='卡車'
+    else if(car.CarType===5||car.CarType==='腳踏車') car.CarType='腳踏車'
     else ;
+
+    const global_cameraname=["北區東豐路與林森路路口-東豐路往東快車道",
+    "北區東豐路與林森路路口-東豐路往西路口",
+    "北區東豐路與林森路路口-林森路往北路口",
+    "北區東豐路與林森路路口-東豐路往東慢車道",
+    "北區東豐路與林森路路口-東豐路往西快車道",
+    "北區東豐路與林森路路口-林森路往北車道",
+    "北區東豐路與林森路路口-林森路往北車道",
+    "北區東豐路與林森路路口-林森路往北路口",
+    "北區東豐路與林森路路口-東豐路往東快車道",
+    "北區東豐路與林森路路口-東豐路往東路口",
+    "北區東豐路與林森路路口-東豐路往西慢車道",
+    "北區東豐路與林森路路口-東豐路往西快車道",
+    "北區東豐路與林森路路口-林森路往北車道",
+    "北區東豐路與林森路路口-林森路往南路口",
+    "北區東豐路與林森路路口-東豐路往東路口",
+    "北區東豐路與林森路路口-東豐路往西快車道",
+    "北區東豐路與林森路路口-林森路往南車道",
+    "北區東豐路與林森路路口-東豐路往東快車道",
+    "北區東豐路與林森路路口-東豐路往西慢車道",
+    "北區東豐路與林森路路口-東豐路往東慢車道",
+    "北區東豐路與林森路路口-東豐路往西路口",
+    "北區東豐路與林森路路口-林森路往南車道",
+    "北區東豐路與林森路路口-林森路往南路口",
+    "北區東豐路與林森路路口-林森路往北車道",
+    "北區東豐路與林森路路口-林森路往南車道"]
+
+    let camera_number = car.CameraName
 /*
     function convertUTCDateToLocalDate(date) {
         var newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
@@ -29,6 +57,8 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
         <tr>
             <td>{editFormData.ID}</td>
             <td>{editFormData.CameraName}</td>
+            <td>{global_cameraname[camera_number]}</td>
+
             {/*<td>{editFormData.Event}</td>*/}
             <td>{editFormData.EventName}</td>
             <td>{editFormData.EventDatetime0} </td>
@@ -37,12 +67,12 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
             <td><ShowVideo car={car} /></td>
             <td>
                 <select name="CarType" value={editFormData.CarType} onChange={handleEditFormChange}>
-                    <option value="行人">行人</option>
-                    <option value="汽車">汽車</option>
-                    <option value="機車">機車</option>
-                    <option value="公車">公車</option>
-                    <option value="卡車">卡車</option>
-                    <option value="腳踏車">腳踏車</option>
+                    <option value="0">行人</option>
+                    <option value="1">汽車</option>
+                    <option value="2">機車</option>
+                    <option value="3">公車</option>
+                    <option value="4">卡車</option>
+                    <option value="5">腳踏車</option>
                 </select>
 
             </td>

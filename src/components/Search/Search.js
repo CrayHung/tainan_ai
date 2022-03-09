@@ -4,6 +4,7 @@ import MyTable from '../Tablelist/MyTable';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { serverUrl } from '../../auth/cfg';
+import JsonToExcel from '../JsonToExcel/JsonToExcel';
 
 
 function Search() {
@@ -18,6 +19,8 @@ function Search() {
     const [cars, setCars] = useState([]);
     const [tmpcars, setTmpCars] = useState([]);
     const { register, handleSubmit } = useForm();
+
+    const [showExcel, setShowExcel] = useState(false)
 
 
     /*******************************************************/
@@ -94,16 +97,17 @@ function Search() {
         })
 
         let eventNo = parseInt(value[0])
+        let checkNo = parseInt(value[1])
 
-        if (eventNo === 0) eventNo = 0
-        else if (eventNo === 1) eventNo = 2
-        else if (eventNo === 2) eventNo = 4
-        else if (eventNo === 3) eventNo = 7
-        else if (eventNo === 4) eventNo = 8
-        else if (eventNo === 5) eventNo = 10
-        else if (eventNo === 6) eventNo = 11
-        else if (eventNo === 7) eventNo = 9
-        else if (eventNo === 8) eventNo = 3
+        if (eventNo == 0) eventNo = 0
+        else if (eventNo == 1) eventNo = 2
+        else if (eventNo == 2) eventNo = 4
+        else if (eventNo == 3) eventNo = 7
+        else if (eventNo == 4) eventNo = 8
+        else if (eventNo == 5) eventNo = 10
+        else if (eventNo == 6) eventNo = 11
+        else if (eventNo == 7) eventNo = 9
+        else if (eventNo == 8) eventNo = 3
         else;
         /*
         let eventNo = parseInt(value[0])
@@ -118,10 +122,9 @@ function Search() {
                 else if (value === '8') str = 3
                 else;
         */
-        let checkNo = parseInt(value[1])
+
 
         const fetchData = async () => {
-
             const Body = {
                 "Event": eventNo,
                 "Checked": checkNo,
@@ -144,39 +147,30 @@ function Search() {
                         const data = response.filter(function (item) {
                             return item.PlateNumber !== "NULL"
                         });
-                        // setTmpCars(response)
+
 
                         for (let i = 0; i < data.length; i++) {
                             const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
                             data[i]["EventDatetime0"] = eTime0;
                         }
-                        console.log(data);
-                        setCars(data);
+
+
+                        const tmp_arr = []
+                        for (let i = 0; i < data.length; i++) {
+                            tmp_arr[i] = data.pop()
+                        }
+                        setCars(tmp_arr);
+                        setShowExcel(true)
                     });
 
             }
         }
         fetchData();
-        // handlefetch()
-        // handlefilter()
-
-    }
-    /*
-    const handlefilter=()=> {
-        let arr = tmpcars.filter(function (item) {
-                return item.PlateNumber !== "NULL"
-            });
-            setCars(arr)
     }
 
-    useEffect(()=>{
-        handlefilter()
-    },[tmpcars])
-    */
-    console.log(cars)
+
     return (
         <>
-
             <table>
                 <tr>
 
@@ -227,8 +221,14 @@ function Search() {
 
 
 
-
+            {showExcel&&(<JsonToExcel
+                cars={cars}
+                setShowExcel={setShowExcel}
+                start={start}
+                end={end}
+                />)}
             <MyTable tableData={cars} sizePerPage={10}></MyTable>
+
         </>
     );
 }
