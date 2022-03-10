@@ -12,6 +12,7 @@ export default function Excel_Type() {
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
     const [fname, setFname] = useState('');
+    const [check,setCheck] = useState(0)
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -29,25 +30,27 @@ export default function Excel_Type() {
 
 
     function handleTimeChange(date) {
+        handleshow()
         let dataValues = [
             date.getFullYear(),
             date.getMonth() + 1,
             date.getDate(),
         ];
-        let str=''
-    let tmp_str=''
-    let tmp_date=dataValues[2]
-    let tmp_month=dataValues[1]
+        let str = ''
+        let tmp_str = ''
+        let tmp_date = dataValues[2]
+        let tmp_month = dataValues[1]
 
-    if(tmp_month<10) tmp_month = '0'+dataValues[1]
-    if(tmp_date<10) tmp_date = '0'+dataValues[2]
-    tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T00:00:00'
-    str = tmp_str.toString()
-    setStart(str)
+        if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+        if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+        tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T00:00:00'
+        str = tmp_str.toString()
+        setStart(str)
 
-        setShowPie(false)
-        setShowTable(false)
-        setShowExcel(false)
+
+        //setShowPie(false)
+        //setShowTable(false)
+        //setShowExcel(false)
     }
 
     function handleTimeChange2(date) {
@@ -56,17 +59,17 @@ export default function Excel_Type() {
             date.getMonth() + 1,
             date.getDate(),
         ];
-        let str=''
-        let tmp_str=''
-        let tmp_date=dataValues[2]
-        let tmp_month=dataValues[1]
+        let str = ''
+        let tmp_str = ''
+        let tmp_date = dataValues[2]
+        let tmp_month = dataValues[1]
 
-        if(tmp_month<10) tmp_month = '0'+dataValues[1]
-        if(tmp_date<10) tmp_date = '0'+dataValues[2]
-        tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T23:59:59'
+        if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+        if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+        tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
         str = tmp_str.toString()
         setEnd(str)
-    
+
         //setShowPie(false)
         //setShowTable(false)
         //setShowExcel(false)
@@ -76,8 +79,8 @@ export default function Excel_Type() {
             const Body = {
                 "EventDatetime0": start,
                 "EventDatetime1": str,
-                "Event":0,
-                "Checked":2
+                "Event": 0,
+                "Checked": check
             }
             console.log('Body')
             console.log(Body)
@@ -94,39 +97,39 @@ export default function Excel_Type() {
                     .then(response => {
 
                         const data = response.filter(function (item) {
-                          return item.PlateNumber !== "NULL"
+                            return item.PlateNumber !== "NULL"
                         });
                         // setTmpCars(response)
-            
+
                         for (let i = 0; i < data.length; i++) {
-                          const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
-                          data[i]["EventDatetime0"] = eTime0;
+                            const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
+                            data[i]["EventDatetime0"] = eTime0;
                         }
-                        console.log(data);
+                        //console.log(data);
                         setCars(data);
-                      });
-            
-                  }
-                }
-                fetchData();
+                    });
+
+            }
+        }
+        fetchData();
         //handlefetch()
         //handlefilter()
-		
-	}
+
+    }
 
 
     /*
-	const handlefilter= async ()=> {
-		let arr = tmpcars.filter(function (item) {
-				return item.PlateNumber !== "NULL"
-			});
-			setCars(arr)
+    const handlefilter= async ()=> {
+        let arr = tmpcars.filter(function (item) {
+                return item.PlateNumber !== "NULL"
+            });
+            setCars(arr)
             console.log(cars)
-	}
+    }
 
-	useEffect(()=>{
-		handlefilter()
-	},[tmpcars])
+    useEffect(()=>{
+        handlefilter()
+    },[tmpcars])
 
 */
     function handleCount() {
@@ -173,7 +176,7 @@ export default function Excel_Type() {
             */
             arr.push(c0, c1, c2, c3, c4, c5, c6, c7)
         }
-        
+
         count()
         handlePie(arr)
         setArrData(arr)
@@ -186,9 +189,9 @@ export default function Excel_Type() {
         //console.log(start1)
 
 
-        let tmp_fname = start1 + '_' + end1 +'違規類型統計表'
+        let tmp_fname = start1 + '_' + end1 + '違規類型統計表'
         let fname = tmp_fname.replace(/-/gi, "")
-        console.log(fname)
+        //console.log(fname)
         setFname(fname)
     }
 
@@ -199,8 +202,8 @@ export default function Excel_Type() {
 
 
     function handlePie(data_type) {
-        console.log(data_type)
-        console.log(cars)
+        //console.log(data_type)
+        //console.log(cars)
         ChartJS.register(ArcElement, Tooltip, Legend);
         const piedata = {
             labels: ['違規紅燈直行、右轉及左轉', '不依行向專用車道行駛', '車行駛於禁行機慢車道', '機慢車停等區車輛違規停放', '未保持路口淨空違規偵測', '跨越禁止變換車道線', '車輛未禮讓行人', '違規(臨時)停車'],
@@ -237,13 +240,13 @@ export default function Excel_Type() {
     }
 
     function handleshow() {
-        setShowPie(true)
-        setShowTable(true)
-        setShowExcel(true)
+        setShowPie(!showPie)
+        setShowTable(!showTable)
+        setShowExcel(!showExcel)
     }
 
 
-    const options={
+    const options = {
         maintainAspectRatio: false,
         responsive: false,
         //responsive:true,
@@ -251,23 +254,47 @@ export default function Excel_Type() {
         legend: { display: false }
     }
 
+    function handle_type_selector(value) {
+
+        let str = ''
+        if (value === '0') str = 0
+        else if (value === '1') str = 1
+        else if (value === '2') str = 2
+        else;
+    setCheck(str)
+}
+
     return (
         <>
-        <table>
-            <td><h5>起始日期:(不可為當前日期)<DatePicker
-                selected={startDate}
-                onSelect={(date) => handleTimeChange(date)}
-                onChange={(date) => setStartDate(date)}
-               
-            ></DatePicker></h5></td>
-            <td><h5>結束日期:(不可為當前日期) <DatePicker
-                selected={endDate}
-                onSelect={(date) => handleTimeChange2(date)}
-                onChange={(date) => setEndDate(date)}
-            ></DatePicker></h5></td>
-        </table>
-           
-           
+            <table>
+                <td><h5>起始日期:(不可為當前日期)<DatePicker
+                    selected={startDate}
+                    onSelect={(date) => handleTimeChange(date)}
+                    onChange={(date) => setStartDate(date)}
+
+                ></DatePicker></h5></td>
+
+                <td>
+                    <form onChange={(val) => handle_type_selector(val.target.value)}>
+                        <h4>審查狀態</h4>
+                        <select id="checked" >
+                            <option value="2">ALL</option>
+                            <option value="0">1.未審查</option>
+                            <option value="1">2.已審查</option>
+                        </select>
+                    </form>
+                </td>
+                <td><h5>結束日期:(不可為當前日期) <DatePicker
+                    selected={endDate}
+                    onSelect={(date) => handleTimeChange2(date)}
+                    onChange={(date) => setEndDate(date)}
+                ></DatePicker></h5></td>
+
+
+                
+            </table>
+
+
 
             {showTable ? (
                 <table id="tblExport"  >
@@ -297,18 +324,18 @@ export default function Excel_Type() {
                     </tbody>
 
                 </table>
-            ): null}
+            ) : null}
 
             {/*{showExcel ? (<Excel fname={fname} />) : null}*/}
             {showExcel && (<Excel fname={fname} />)}
 
-            {showPie ? (
+            {showPie && (
                 <div>
-                <Pie
-                    data={pieData}
-                    width={540} height={480} 
-                     options={options}
-                /></div>) : null}
+                    <Pie
+                        data={pieData}
+                        width={540} height={480}
+                        options={options}
+                    /></div>)}
 
         </>
     )

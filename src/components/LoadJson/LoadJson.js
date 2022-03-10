@@ -161,12 +161,12 @@ export default function LoadJson({ cars, setCars }) {
 	//要儲存在txt中的內容
 	let camera_number = car.CameraName
 	const saveValues = {
-		"攝影機": car.CameraName,
+		CameraName: car.CameraName,
 		"攝影機行向": global_cameraname[camera_number],
-		"違規事件": car.EventName,
-		"違規時間": car.EventDatetime0,
-		"車種": car.CarType,
-		"車號": car.PlateNumber
+		EventName: car.EventName,
+		EventDatetime0: car.EventDatetime0,
+		CarType: car.CarType,
+		車號: car.PlateNumber
 	}
 	//console.log('儲存txt的saveValues內容')
 	//console.log(saveValues)
@@ -182,20 +182,33 @@ export default function LoadJson({ cars, setCars }) {
 		else if (car.CarType === 5 || car.CarType === "腳踏車") car.CarType = 5
 		else;
 
+		if (car.Event === 0||car.Event ==="違規紅燈直行、右轉及左轉偵測") car.Event = 0
+		else if (car.Event === 1||car.Event ==="不依行向專用車道行駛偵測") car.Event = 1
+		else if (car.Event === 2||car.Event ==="機車行駛於禁行機慢車道偵測") car.Event = 2
+		else if (car.Event === 3||car.Event ==="機慢車停等區車輛違規停放偵測") cars.Event = 3
+		else if (car.Event === 4||car.Event ==="未保持路口淨空違規偵測") car.Event = 4
+		else if (car.Event === 5||car.Event ==="跨越禁止變換車道線偵測") car.Event = 5
+		else if (car.Event === 6||car.Event ==="車輛未禮讓行人偵測") car.Event = 6
+		else if (car.Event === 7||car.Event ==="違規(臨時)停車偵測") car.Event = 7
+		else;
+		/*console.log('car.PlateNumber')
+		console.log(typeof(car.PlateNumber))
+		console.log(car.PlateNumber)
+		*/
 		//用來放回存DB的資料
 		const saveBackDBValues = {
-			//"Event": car.Event,
-			"CarType": car.CarType,
-			"PlateNumber": car.PlateNumber,
-			"Checked": 1
+			//Event: car.Event,
+			CarType: car.CarType,
+			PlateNumber: car.PlateNumber,
+			Checked: 1
 		};
+		/*
 		console.log('回存DB的saveBackDBValues內容')
 		console.log(saveBackDBValues)		
 		console.log('回存DB的saveBackDBValues的Checked內容')
 		console.log('saveBackDBValues.Checked')
 		console.log(saveBackDBValues.Checked)
-		console.log('type of Checked')
-		console.log(typeof(saveBackDBValues.Checked))
+		*/
 
 
 		
@@ -217,7 +230,31 @@ export default function LoadJson({ cars, setCars }) {
 		console.log('更新完checked後的confirmedCars[index]')
 		console.log(confirmedCars[index])
 		//更新
-		setCars(confirmedCars)
+		setCars(confirmedCars[index])
+		//setCars(confirmedCars)
+		console.log('更新完checked後的confirmedCars[index]   cars')
+console.log(cars)
+
+
+		if (saveValues.Event === 0||saveValues.Event ==="違規紅燈直行、右轉及左轉偵測") saveValues.Event = "違規紅燈直行、右轉及左轉偵測"
+		else if (saveValues.Event === 1||saveValues.Event ==="不依行向專用車道行駛偵測") saveValues.Event = "不依行向專用車道行駛偵測"
+		else if (saveValues.Event === 2||saveValues.Event ==="機車行駛於禁行機慢車道偵測") saveValues.Event = "機車行駛於禁行機慢車道偵測"
+		else if (saveValues.Event === 3||saveValues.Event ==="機慢車停等區車輛違規停放偵測") saveValues.Event = "機慢車停等區車輛違規停放偵測"
+		else if (saveValues.Event === 4||saveValues.Event ==="未保持路口淨空違規偵測") saveValues.Event = "未保持路口淨空違規偵測"
+		else if (saveValues.Event === 5||saveValues.Event ==="跨越禁止變換車道線偵測") saveValues.Event = "跨越禁止變換車道線偵測"
+		else if (saveValues.Event === 6||saveValues.Event ==="車輛未禮讓行人偵測") saveValues.Event = "車輛未禮讓行人偵測"
+		else if (saveValues.Event === 7||saveValues.Event ==="違規(臨時)停車偵測") saveValues.Event = "違規(臨時)停車偵測"
+		else;
+
+		if (car.CarType === 0||car.CarType === 'person'||car.CarType==='行人')car.CarType = '行人'
+		else if (car.CarType ===1||car.CarType === 'car'||car.CarType==='汽車') car.CarType = '汽車'
+		else if (car.CarType === 2||car.CarType === 'motorbike'||car.CarType==='機車') car.CarType = '機車'
+		else if (car.CarType === 3||car.CarType === 'bus'||car.CarType==='公車') car.CarType = '公車'
+		else if (car.CarType === 4||car.CarType === 'truck'||car.CarType==='卡車') car.CarType ='卡車'
+		else if (car.CarType === 5||car.CarType==='bike'||car.CarType==='腳踏車')car.CarType ='腳踏車'
+		else ;
+
+
 
 		console.log('更新完checked後的cars')
 		console.log(cars[0])
@@ -227,11 +264,20 @@ export default function LoadJson({ cars, setCars }) {
 		const obj = JSON.stringify(savevalue[index])
 		var temp_result1 = obj.replace("{", "")
 		var temp_result2 = temp_result1.replace("}", "")
+		var temp_result3 = temp_result2.replace("CameraName", "攝影機")
+		var temp_result4 = temp_result3.replace("RoadName", "路名")
+		var temp_result5 = temp_result4.replace("Event", "違規種類")
+		var temp_result6 = temp_result5.replace("EventName", "違規事件")
+		var temp_result7 = temp_result6.replace("EventDatetime0", "違規日期")
+		var temp_result8 = temp_result7.replace("CarType", "車種")
+		var temp_result9 = temp_result8.replace("PlateNumber", "車號")
 		const regex = /,/ig
-		var result = temp_result2.replace(regex, '\n')
+		var result = temp_result9.replace(regex, '\n')
 
+
+		var txtfname = savevalue[index].EventDatetime0 + '_' + savevalue[index].PlateNumber
 		//downloadtxt(data, filename, type)
-		downloadtxt(result, savevalue[index].EventDatetime0 + '_' + savevalue[index].PlateNumber, 'txt')
+		downloadtxt(result, txtfname, 'txt') 
 
 
 		//下載照片
@@ -242,6 +288,7 @@ export default function LoadJson({ cars, setCars }) {
 		//將PlateNumber,CarType,Checked值POST回DB
 		//savebackDB(confirmedCars[index].ID.toString())
 		savebackDB(saveBackDBValues, confirmedCars[index].ID)
+	
 		//savebackDB(confirmedCars[index].ID)
 		//將確認後的物件移出陣列中
 		confirmedCars.splice(index, 1)

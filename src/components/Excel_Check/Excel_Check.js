@@ -12,6 +12,7 @@ export default function Excel_Check() {
     const [start, setStart] = useState('');
     const [end, setEnd] = useState('');
     const [fname, setFname] = useState('');
+    const [check,setCheck] = useState(0)
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -34,16 +35,16 @@ export default function Excel_Check() {
             date.getMonth() + 1,
             date.getDate(),
         ];
-        let str=''
-    let tmp_str=''
-    let tmp_date=dataValues[2]
-    let tmp_month=dataValues[1]
+        let str = ''
+        let tmp_str = ''
+        let tmp_date = dataValues[2]
+        let tmp_month = dataValues[1]
 
-    if(tmp_month<10) tmp_month = '0'+dataValues[1]
-    if(tmp_date<10) tmp_date = '0'+dataValues[2]
-    tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T00:00:00'
-    str = tmp_str.toString()
-    setStart(str)
+        if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+        if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+        tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T00:00:00'
+        str = tmp_str.toString()
+        setStart(str)
 
         setShowPie(false)
         setShowTable(false)
@@ -56,17 +57,17 @@ export default function Excel_Check() {
             date.getMonth() + 1,
             date.getDate(),
         ];
-        let str=''
-        let tmp_str=''
-        let tmp_date=dataValues[2]
-        let tmp_month=dataValues[1]
+        let str = ''
+        let tmp_str = ''
+        let tmp_date = dataValues[2]
+        let tmp_month = dataValues[1]
 
-        if(tmp_month<10) tmp_month = '0'+dataValues[1]
-        if(tmp_date<10) tmp_date = '0'+dataValues[2]
-        tmp_str = dataValues[0] +'-'+ tmp_month +'-'+ tmp_date + 'T23:59:59'
+        if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+        if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+        tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
         str = tmp_str.toString()
         setEnd(str)
-    
+
         //setShowPie(false)
         //setShowTable(false)
         //setShowExcel(false)
@@ -76,8 +77,8 @@ export default function Excel_Check() {
             const Body = {
                 "EventDatetime0": start,
                 "EventDatetime1": str,
-                "Event":0,
-                "Checked":2
+                "Event": 0,
+                "Checked": check
             }
             console.log('Body')
             console.log(Body)
@@ -92,44 +93,44 @@ export default function Excel_Check() {
                     .then(res => res.json())
                     .catch(error => console.error('Error:', error))
                     .then(response => {
-                      console.log('data before reduce NULL')
-                        console.log(response)
+                        //console.log('data before reduce NULL')
+                        //console.log(response)
                         const data = response.filter(function (item) {
-                          return item.PlateNumber !== "NULL"
+                            return item.PlateNumber !== "NULL"
                         });
                         // setTmpCars(response)
-                        console.log('data after reduce NULL')
-                        console.log(data)
+                        //console.log('data after reduce NULL')
+                        //console.log(data)
                         for (let i = 0; i < data.length; i++) {
-                          const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
-                          data[i]["EventDatetime0"] = eTime0;
+                            const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
+                            data[i]["EventDatetime0"] = eTime0;
                         }
-                        console.log('data after change Datetime')
-                        console.log(data);
+                        //console.log('data after change Datetime')
+                        //console.log(data);
                         setCars(data);
-                      });
-            
-                  }
-                }
-                fetchData();
+                    });
+
+            }
+        }
+        fetchData();
         //handlefetch()
         //handlefilter()
-		
-	}
+
+    }
 
 
     /*
-	const handlefilter= async ()=> {
-		let arr = tmpcars.filter(function (item) {
-				return item.PlateNumber !== "NULL"
-			});
-			setCars(arr)
+    const handlefilter= async ()=> {
+        let arr = tmpcars.filter(function (item) {
+                return item.PlateNumber !== "NULL"
+            });
+            setCars(arr)
             console.log(cars)
-	}
+    }
 
-	useEffect(()=>{
-		handlefilter()
-	},[tmpcars])
+    useEffect(()=>{
+        handlefilter()
+    },[tmpcars])
 
 */
     function handleCount() {
@@ -166,7 +167,7 @@ export default function Excel_Check() {
             */
             arr.push(c0, c1)
         }
-        
+
         count()
         handlePie(arr)
         setArrData(arr)
@@ -179,9 +180,9 @@ export default function Excel_Check() {
         //console.log(start1)
 
 
-        let tmp_fname = start1 + '_' + end1 +'審查狀態統計表'
+        let tmp_fname = start1 + '_' + end1 + '審查狀態統計表'
         let fname = tmp_fname.replace(/-/gi, "")
-        console.log(fname)
+        //console.log(fname)
         setFname(fname)
     }
 
@@ -192,8 +193,8 @@ export default function Excel_Check() {
 
 
     function handlePie(data_type) {
-        console.log(data_type)
-        console.log(cars)
+        //console.log(data_type)
+        //console.log(cars)
         ChartJS.register(ArcElement, Tooltip, Legend);
         const piedata = {
             labels: ['未審查', '已人工審查'],
@@ -224,7 +225,7 @@ export default function Excel_Check() {
     }
 
 
-    const options={
+    const options = {
         maintainAspectRatio: false,
         responsive: false,
         //responsive:true,
@@ -232,23 +233,36 @@ export default function Excel_Check() {
         legend: { display: false }
     }
 
+
+    function handle_type_selector(value) {
+
+        let str = ''
+        if (value === '0') str = 0
+        else if (value === '1') str = 1
+        else if (value === '2') str = 2
+        else;
+        setCheck(str)
+    }
+
     return (
         <>
-        <table>
-            <td><h5>起始日期:(不可為當前日期)<DatePicker
-                selected={startDate}
-                onSelect={(date) => handleTimeChange(date)}
-                onChange={(date) => setStartDate(date)}
-               
-            ></DatePicker></h5></td>
-            <td><h5>結束日期:(不可為當前日期) <DatePicker
-                selected={endDate}
-                onSelect={(date) => handleTimeChange2(date)}
-                onChange={(date) => setEndDate(date)}
-            ></DatePicker></h5></td>
-        </table>
-           
-           
+            <table>
+                <td><h5>起始日期:(不可為當前日期)<DatePicker
+                    selected={startDate}
+                    onSelect={(date) => handleTimeChange(date)}
+                    onChange={(date) => setStartDate(date)}
+
+                ></DatePicker></h5></td>
+
+                
+                <td><h5>結束日期:(不可為當前日期) <DatePicker
+                    selected={endDate}
+                    onSelect={(date) => handleTimeChange2(date)}
+                    onChange={(date) => setEndDate(date)}
+                ></DatePicker></h5></td>
+            </table>
+
+
 
             {showTable ? (
                 <table id="tblExport"  >
@@ -256,7 +270,7 @@ export default function Excel_Check() {
                         <tr>
                             <th>未審查</th>
                             <th>已人工審查</th>
-                           
+
                         </tr>
                     </thead>
                     <tbody>
@@ -268,18 +282,18 @@ export default function Excel_Check() {
                     </tbody>
 
                 </table>
-            ): null}
+            ) : null}
 
             {/*{showExcel ? (<Excel fname={fname} />) : null}*/}
             {showExcel && (<Excel fname={fname} />)}
 
             {showPie ? (
                 <div>
-                <Pie
-                    data={pieData}
-                    width={540} height={480} 
-                     options={options}
-                /></div>) : null}
+                    <Pie
+                        data={pieData}
+                        width={540} height={480}
+                        options={options}
+                    /></div>) : null}
 
         </>
     )

@@ -12,6 +12,7 @@ export default function Excel_Car() {
   const [start, setStart] = useState('');
   const [end, setEnd] = useState('');
   const [fname, setFname] = useState('');
+  const [check,setCheck] = useState(0)
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -39,7 +40,7 @@ export default function Excel_Car() {
 
     if (tmp_month < 10) tmp_month = '0' + dataValues[1]
     if (tmp_date < 10) tmp_date = '0' + dataValues[2]
-    tmp_str = dataValues[0] +'-'+tmp_month +'-'+tmp_date+'T00:00:00'
+    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T00:00:00'
     str = tmp_str.toString()
     setStart(str)
     setShowPie(false)
@@ -58,9 +59,9 @@ export default function Excel_Car() {
     let tmp_date = dataValues[2]
     let tmp_month = dataValues[1]
 
-    if (tmp_month < 10) tmp_month = '0'+dataValues[1]
-    if (tmp_date < 10) tmp_date = '0'+dataValues[2]
-    tmp_str = dataValues[0] +'-'+ tmp_month+'-'+tmp_date+'T23:59:59'
+    if (tmp_month < 10) tmp_month = '0' + dataValues[1]
+    if (tmp_date < 10) tmp_date = '0' + dataValues[2]
+    tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T23:59:59'
     str = tmp_str.toString()
     setEnd(str)
 
@@ -73,8 +74,8 @@ export default function Excel_Car() {
       const Body = {
         "EventDatetime0": start,
         "EventDatetime1": str,
-        "Event":0,
-        "Checked":2
+        "Event": 0,
+        "Checked": check
       }
       console.log('Body')
       console.log(Body)
@@ -99,7 +100,7 @@ export default function Excel_Car() {
               const eTime0 = data[i]["EventDatetime0"].replace("T", " ");
               data[i]["EventDatetime0"] = eTime0;
             }
-            console.log(data);
+            //console.log(data);
             setCars(data);
           });
 
@@ -157,20 +158,20 @@ export default function Excel_Car() {
     setArrData(arr)
 
 
-        const start0 = start.replace("T", "")
-        const start1 = start0.replace("00:00:00", "")
-        const end0 = end.replace("T", "")
-        const end1 = end0.replace("23:59:59", "")
-        console.log('start1')
-        console.log(start1)
-        console.log('end1')
-        console.log(end1)
+    const start0 = start.replace("T", "")
+    const start1 = start0.replace("00:00:00", "")
+    const end0 = end.replace("T", "")
+    const end1 = end0.replace("23:59:59", "")
+    //console.log('start1')
+    //console.log(start1)
+    //console.log('end1')
+    //console.log(end1)
 
 
-        let tmp_fname = start1+ '_' + end1 +'違規車種統計表'
-        let fname = tmp_fname.replace(/-/gi, "")
-        console.log(fname)
-        setFname(fname)
+    let tmp_fname = start1 + '_' + end1 + '違規車種統計表'
+    let fname = tmp_fname.replace(/-/gi, "")
+    //console.log(fname)
+    setFname(fname)
   }
 
   useEffect(async () => {
@@ -180,10 +181,10 @@ export default function Excel_Car() {
 
 
   function handlePie(data_type) {
-    console.log('data_type')
-    console.log(data_type)
-    console.log('cars')
-    console.log(cars)
+    //console.log('data_type')
+    //console.log(data_type)
+    //console.log('cars')
+    //console.log(cars)
     ChartJS.register(ArcElement, Tooltip, Legend);
     const piedata = {
       labels: ['行人', '汽車', '機車', '公車', '卡車', '腳踏車'],
@@ -229,6 +230,16 @@ export default function Excel_Car() {
     legend: { display: false }
   }
 
+  function handle_type_selector(value) {
+
+    let str = ''
+    if (value === '0') str = 0
+    else if (value === '1') str = 1
+    else if (value === '2') str = 2
+    else;
+setCheck(str)
+  }
+
   return (
     <>
       <table>
@@ -237,6 +248,18 @@ export default function Excel_Car() {
           onSelect={(date) => handleTimeChange(date)}
           onChange={(date) => setStartDate(date)}
         ></DatePicker></h5></td>
+
+        <td>
+          <form onChange={(val) => handle_type_selector(val.target.value)}>
+            <h4>審查狀態</h4>
+            <select id="checked" >
+              <option value="2">ALL</option>
+              <option value="0">1.未審查</option>
+              <option value="1">2.已審查</option>
+            </select>
+          </form>
+        </td>
+
         <td><h5>結束日期:(不可為當前日期) <DatePicker
           selected={endDate}
           onSelect={(date) => handleTimeChange2(date)}
@@ -270,7 +293,7 @@ export default function Excel_Car() {
         </table>
       ) : null}
 
-      {showExcel && (<Excel fname={fname} />) }
+      {showExcel && (<Excel fname={fname} />)}
 
       {showPie ? (
         <div>

@@ -9,7 +9,7 @@ import 'bootstrap';
 
 import ExcelCar from './components/Excel_Car/Excel_Car'
 import Excel_Type from './components/Excel_Type/Excel_Type.js';
-import Excel_Check from './components/Excel_Check/Excel_Check.js';
+
 import Main from './components/Main/Main';
 import Login from './web/Login';
 import { AuthContext, RequireAuth } from './auth/reducer';
@@ -74,11 +74,6 @@ function App() {
             <Route path="/exceltype" element={
             <RequireAuth>
               <Excel_Type />
-            </RequireAuth>
-            } />
-            <Route path="/excelcheck" element={
-            <RequireAuth>
-              <Excel_Check />
             </RequireAuth>
             } />
             <Route path="/test" element={

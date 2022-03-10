@@ -1,5 +1,5 @@
+//https://stackoverflow.com/questions/66918023/how-to-convert-and-download-csv-to-xlsx-on-front-end-ts-react
 import React, { useState, useEffect } from 'react';
-import data from '../../test.json'
 import XLSX from 'xlsx';
 
 export default function JsonToExcel({ cars, setShowExcel,start,end }) {
