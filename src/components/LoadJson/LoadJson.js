@@ -113,7 +113,7 @@ export default function LoadJson({ cars, setCars }) {
 			EventDatetime1: car.EventDatetime1,
 			EventDatetime2: car.EventDatetime2,
 			EventDatetime3: car.EventDatetime3,
-			CarType: car.CarType,			
+			CarType: car.CarType,
 			ImgName0: car.ImgName0,
 			ImgName1: car.ImgName1,
 			ImgName2: car.ImgName2,
@@ -158,23 +158,23 @@ export default function LoadJson({ cars, setCars }) {
 				else;
 		*/
 
-	//要儲存在txt中的內容
-	let camera_number = car.CameraName
-	const saveValues = {
-		CameraName: car.CameraName,
-		"攝影機行向": global_cameraname[camera_number],
-		EventName: car.EventName,
-		EventDatetime0: car.EventDatetime0,
-		CarType: car.CarType,
-		車號: car.PlateNumber
-	}
-	//console.log('儲存txt的saveValues內容')
-	//console.log(saveValues)
+		//要儲存在txt中的內容
+		let camera_number = car.CameraName
+		const saveValues = {
+			CameraName: car.CameraName,
+			"攝影機行向": global_cameraname[camera_number],
+			EventName: car.EventName,
+			EventDatetime0: car.EventDatetime0,
+			CarType: car.CarType,
+			車號: car.PlateNumber
+		}
+		//console.log('儲存txt的saveValues內容')
+		//console.log(saveValues)
 
 
 
 
-	if (car.CarType === 0 || car.CarType === "行人") car.CarType = 0
+		if (car.CarType === 0 || car.CarType === "行人") car.CarType = 0
 		else if (car.CarType === 1 || car.CarType === "汽車") car.CarType = 1
 		else if (car.CarType === 2 || car.CarType === "機車") car.CarType = 2
 		else if (car.CarType === 3 || car.CarType === "公車") car.CarType = 3
@@ -182,14 +182,14 @@ export default function LoadJson({ cars, setCars }) {
 		else if (car.CarType === 5 || car.CarType === "腳踏車") car.CarType = 5
 		else;
 
-		if (car.Event === 0||car.Event ==="違規紅燈直行、右轉及左轉偵測") car.Event = 0
-		else if (car.Event === 1||car.Event ==="不依行向專用車道行駛偵測") car.Event = 1
-		else if (car.Event === 2||car.Event ==="機車行駛於禁行機慢車道偵測") car.Event = 2
-		else if (car.Event === 3||car.Event ==="機慢車停等區車輛違規停放偵測") cars.Event = 3
-		else if (car.Event === 4||car.Event ==="未保持路口淨空違規偵測") car.Event = 4
-		else if (car.Event === 5||car.Event ==="跨越禁止變換車道線偵測") car.Event = 5
-		else if (car.Event === 6||car.Event ==="車輛未禮讓行人偵測") car.Event = 6
-		else if (car.Event === 7||car.Event ==="違規(臨時)停車偵測") car.Event = 7
+		if (car.Event === 0 || car.Event === "違規紅燈直行、右轉及左轉偵測") car.Event = 0
+		else if (car.Event === 1 || car.Event === "不依行向專用車道行駛偵測") car.Event = 1
+		else if (car.Event === 2 || car.Event === "機車行駛於禁行機慢車道偵測") car.Event = 2
+		else if (car.Event === 3 || car.Event === "機慢車停等區車輛違規停放偵測") cars.Event = 3
+		else if (car.Event === 4 || car.Event === "未保持路口淨空違規偵測") car.Event = 4
+		else if (car.Event === 5 || car.Event === "跨越禁止變換車道線偵測") car.Event = 5
+		else if (car.Event === 6 || car.Event === "車輛未禮讓行人偵測") car.Event = 6
+		else if (car.Event === 7 || car.Event === "違規(臨時)停車偵測") car.Event = 7
 		else;
 		/*console.log('car.PlateNumber')
 		console.log(typeof(car.PlateNumber))
@@ -197,10 +197,10 @@ export default function LoadJson({ cars, setCars }) {
 		*/
 		//用來放回存DB的資料
 		const saveBackDBValues = {
-			//Event: car.Event,
-			CarType: car.CarType,
-			PlateNumber: car.PlateNumber,
-			Checked: 1
+			//"Event": car.Event,
+			"CarType": car.CarType,
+			"PlateNumber": car.PlateNumber,
+			"Checked": 1
 		};
 		/*
 		console.log('回存DB的saveBackDBValues內容')
@@ -211,9 +211,9 @@ export default function LoadJson({ cars, setCars }) {
 		*/
 
 
-		
 
-	
+
+
 
 
 		//創建一個confirmedCars陣列 , 複製原始cars物件陣列 , 
@@ -227,37 +227,32 @@ export default function LoadJson({ cars, setCars }) {
 
 
 		confirmedCars[index] = formValues
-		console.log('更新完checked後的confirmedCars[index]')
-		console.log(confirmedCars[index])
+
 		//更新
 		setCars(confirmedCars[index])
 		//setCars(confirmedCars)
-		console.log('更新完checked後的confirmedCars[index]   cars')
-console.log(cars)
 
 
-		if (saveValues.Event === 0||saveValues.Event ==="違規紅燈直行、右轉及左轉偵測") saveValues.Event = "違規紅燈直行、右轉及左轉偵測"
-		else if (saveValues.Event === 1||saveValues.Event ==="不依行向專用車道行駛偵測") saveValues.Event = "不依行向專用車道行駛偵測"
-		else if (saveValues.Event === 2||saveValues.Event ==="機車行駛於禁行機慢車道偵測") saveValues.Event = "機車行駛於禁行機慢車道偵測"
-		else if (saveValues.Event === 3||saveValues.Event ==="機慢車停等區車輛違規停放偵測") saveValues.Event = "機慢車停等區車輛違規停放偵測"
-		else if (saveValues.Event === 4||saveValues.Event ==="未保持路口淨空違規偵測") saveValues.Event = "未保持路口淨空違規偵測"
-		else if (saveValues.Event === 5||saveValues.Event ==="跨越禁止變換車道線偵測") saveValues.Event = "跨越禁止變換車道線偵測"
-		else if (saveValues.Event === 6||saveValues.Event ==="車輛未禮讓行人偵測") saveValues.Event = "車輛未禮讓行人偵測"
-		else if (saveValues.Event === 7||saveValues.Event ==="違規(臨時)停車偵測") saveValues.Event = "違規(臨時)停車偵測"
+
+		if (saveValues.Event === 0 || saveValues.Event === "違規紅燈直行、右轉及左轉偵測") saveValues.Event = "違規紅燈直行、右轉及左轉偵測"
+		else if (saveValues.Event === 1 || saveValues.Event === "不依行向專用車道行駛偵測") saveValues.Event = "不依行向專用車道行駛偵測"
+		else if (saveValues.Event === 2 || saveValues.Event === "機車行駛於禁行機慢車道偵測") saveValues.Event = "機車行駛於禁行機慢車道偵測"
+		else if (saveValues.Event === 3 || saveValues.Event === "機慢車停等區車輛違規停放偵測") saveValues.Event = "機慢車停等區車輛違規停放偵測"
+		else if (saveValues.Event === 4 || saveValues.Event === "未保持路口淨空違規偵測") saveValues.Event = "未保持路口淨空違規偵測"
+		else if (saveValues.Event === 5 || saveValues.Event === "跨越禁止變換車道線偵測") saveValues.Event = "跨越禁止變換車道線偵測"
+		else if (saveValues.Event === 6 || saveValues.Event === "車輛未禮讓行人偵測") saveValues.Event = "車輛未禮讓行人偵測"
+		else if (saveValues.Event === 7 || saveValues.Event === "違規(臨時)停車偵測") saveValues.Event = "違規(臨時)停車偵測"
 		else;
 
-		if (car.CarType === 0||car.CarType === 'person'||car.CarType==='行人')car.CarType = '行人'
-		else if (car.CarType ===1||car.CarType === 'car'||car.CarType==='汽車') car.CarType = '汽車'
-		else if (car.CarType === 2||car.CarType === 'motorbike'||car.CarType==='機車') car.CarType = '機車'
-		else if (car.CarType === 3||car.CarType === 'bus'||car.CarType==='公車') car.CarType = '公車'
-		else if (car.CarType === 4||car.CarType === 'truck'||car.CarType==='卡車') car.CarType ='卡車'
-		else if (car.CarType === 5||car.CarType==='bike'||car.CarType==='腳踏車')car.CarType ='腳踏車'
-		else ;
+		if (car.CarType === 0 || car.CarType === 'person' || car.CarType === '行人') car.CarType = '行人'
+		else if (car.CarType === 1 || car.CarType === 'car' || car.CarType === '汽車') car.CarType = '汽車'
+		else if (car.CarType === 2 || car.CarType === 'motorbike' || car.CarType === '機車') car.CarType = '機車'
+		else if (car.CarType === 3 || car.CarType === 'bus' || car.CarType === '公車') car.CarType = '公車'
+		else if (car.CarType === 4 || car.CarType === 'truck' || car.CarType === '卡車') car.CarType = '卡車'
+		else if (car.CarType === 5 || car.CarType === 'bike' || car.CarType === '腳踏車') car.CarType = '腳踏車'
+		else;
 
 
-
-		console.log('更新完checked後的cars')
-		console.log(cars[0])
 
 		//txt內容用正則替換
 		savevalue[index] = saveValues
@@ -274,42 +269,50 @@ console.log(cars)
 		const regex = /,/ig
 		var result = temp_result9.replace(regex, '\n')
 
-
 		var txtfname = savevalue[index].EventDatetime0 + '_' + savevalue[index].PlateNumber
-		//downloadtxt(data, filename, type)
-		downloadtxt(result, txtfname, 'txt') 
-
+		//下載txt(data, filename, type)
+		downloadtxt(result, txtfname, 'txt')
 
 		//下載照片
 		downloadImage(confirmedCars[index])
 
 
-
-		//將PlateNumber,CarType,Checked值POST回DB
+		//存回DB
 		//savebackDB(confirmedCars[index].ID.toString())
 		savebackDB(saveBackDBValues, confirmedCars[index].ID)
-	
+
 		//savebackDB(confirmedCars[index].ID)
 		//將確認後的物件移出陣列中
 		confirmedCars.splice(index, 1)
 		setCars(confirmedCars)
-		console.log('更新完且移除該筆checked後的cars')
-		console.log(cars[0])
 
 	}
 
 	//function savebackDB(data,id) {
 	function savebackDB(data, id) {
+		id = id.toString()
 		const str = serverUrl + '/updatebook/' + id;
+
+		console.log('type of id = ' + typeof (id))
+		console.log('id=' + id)
+		console.log('fetch 內的 url = ' + str)
+		console.log('typeof(url))=' + typeof (str))
+
 
 		fetch(str, {
 			method: 'POST',
 			body: JSON.stringify(data)
+			//body: encodeURI(data)
+			/*body: JSON.stringify({
+				"CarType": 1,
+				"PlateNumber": 222,
+				"Checked": 1
+			})*/
 		})
 			.then(res => res.json())
 			.catch(error => console.error('Error:', error))
-			//.then(response => console.log('Success:', response));
-			.then(response => console.log('Success:', response));
+			.then(response => console.log('success', response));
+		//.then(response => console.log('Success:', response));
 
 	}
 
@@ -400,8 +403,6 @@ console.log(cars)
 		const newFormData = { ...editFormData }
 		newFormData[fieldName] = fieldValue
 
-		console.log('handleEditFormChange變動的newFormData表單')
-		console.log(newFormData)
 		//將合併後的data更新至seteditFormData
 		seteditFormData(newFormData)
 	}
