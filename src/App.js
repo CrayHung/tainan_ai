@@ -35,7 +35,7 @@ function App() {
       <div className='grid-container'>
         <div className='header'>
           <div className='header-container'>
-            <div className='header-title' ><img width={65} src='./image/Taiwan_Police_Logo.png' onClick={() => navigate("/")} />台南市警察局 科技執法管理系統</div>
+            <div className='header-title' ><img width={65} src='./image2/Taiwan_Police_Logo.png' onClick={() => navigate("/")} />台南市警察局 科技執法管理系統</div>
 
             {/* <div className='header-logout'>登出</div> */}
 

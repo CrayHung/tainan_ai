@@ -40,7 +40,7 @@ export default function ShowVideo(props) {
 
   return <div>
 
-<img width={40} src='./image/1.png' onClick={() => {show();}} />
+<img width={40} src='./image2/1.png' onClick={() => {show();}} />
     {showVideo && (
       <div style={modalBackground}>
         <div style={modalContainer}>
