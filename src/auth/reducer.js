@@ -6,7 +6,7 @@ import { Navigate, useLocation  } from "react-router-dom";
 // **global variable
 // 全域變數: maintain一份variables (認證, 使用者, token 等狀態), 讓所有子組件可以使用
 const initialState = {
-    isAuthenticated: getAuth() || false,
+    isAuthenticated: getAuth() || false,     //isAuthenticated初始狀態是false
     user: getStoreUser() || null,
     token: getStoreToken() || null
 };

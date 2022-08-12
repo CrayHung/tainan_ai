@@ -1,12 +1,12 @@
 /***
  * 此component處理編輯table
  */
-import React from 'react'
+import React, { createElement } from 'react'
 import ShowImage from '../ShowImage/ShowImage'
 import ShowVideo from '../ShowVideo/ShowVideo'
 
 
-const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelClick }) => {
+const EdittableRow = ({index, car, editFormData, handleEditFormChange, handleCancelClick }) => {
     if(car.CarType===0||car.CarType==='行人') car.CarType='行人'
     else if(car.CarType===1||car.CarType==='汽車') car.CarType='汽車'
     else if(car.CarType===2||car.CarType==='機車') car.CarType='機車'
@@ -53,8 +53,12 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
     var date = convertUTCDateToLocalDate(new Date(car.EventDatetime));
     //date.toLocaleString()
 */
+
+
     return (
+        <>
         <tr>
+            <td>{index+1}</td>
             <td>{editFormData.ID}</td>
             <td>{editFormData.CameraName}</td>
             <td>{global_cameraname[camera_number]}</td>
@@ -90,6 +94,7 @@ const EdittableRow = ({ car, editFormData, handleEditFormChange, handleCancelCli
                 <button className="btn btn-secondary" type="button" onClick={handleCancelClick}>取消</button>
             </td>
         </tr>
+        </>
     )
 }
 

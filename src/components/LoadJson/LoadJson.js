@@ -1,6 +1,7 @@
-import React, { useState, Fragment, useContext } from 'react'
+import React, { useState, Fragment, useContext, useMemo ,useEffect  } from 'react'
 import { carContext } from '../../createContext';
 
+import { Table} from 'react-bootstrap';
 import ReadOnlyRow from '../ReadOnlyRow/ReadOnlyRow';
 import EdittableRow from '../EdittableRow/EdittableRow';
 
@@ -11,7 +12,33 @@ import './LoadJson.css'
 import { set } from 'react-hook-form';
 
 
+import Pagination from '../Pagination/Pagination';
+
+import ShowImage from '../ShowImage/ShowImage'
+import ShowVideo from '../ShowVideo/ShowVideo'
+import testjson from '../../test_cray.json'
+
+let PageSize = 10;
+
 export default function LoadJson({ cars, setCars }) {
+
+	console.log('cars in loadjson')
+	console.log(cars)
+	const [currentPage, setCurrentPage] = useState(1);		//for Pagination , default is page 1
+	// const [currentTableData, setcurrentTableData] = useState([]);
+
+
+	// const data = useMemo(()=>{
+	// 	const firstPageIndex = (currentPage - 1) * PageSize; 	//0*10=0
+	// 	const lastPageIndex = firstPageIndex + PageSize;		//0+10=10
+	// 	return cars.slice(firstPageIndex, lastPageIndex);	//回傳cars的0~9元素
+	// },[])
+
+	// console.log('data')
+	// console.log(data)
+
+		
+
 
 	/*
 
@@ -168,10 +195,6 @@ export default function LoadJson({ cars, setCars }) {
 			CarType: car.CarType,
 			車號: car.PlateNumber
 		}
-		//console.log('儲存txt的saveValues內容')
-		//console.log(saveValues)
-
-
 
 
 		if (car.CarType === 0 || car.CarType === "行人") car.CarType = 0
@@ -185,16 +208,13 @@ export default function LoadJson({ cars, setCars }) {
 		if (car.Event === 0 || car.Event === "違規紅燈直行、右轉及左轉偵測") car.Event = 0
 		else if (car.Event === 1 || car.Event === "不依行向專用車道行駛偵測") car.Event = 1
 		else if (car.Event === 2 || car.Event === "機車行駛於禁行機慢車道偵測") car.Event = 2
-		else if (car.Event === 3 || car.Event === "機慢車停等區車輛違規停放偵測") cars.Event = 3
+		else if (car.Event === 3 || car.Event === "機慢車停等區車輛違規停放偵測") car.Event = 3
 		else if (car.Event === 4 || car.Event === "未保持路口淨空違規偵測") car.Event = 4
 		else if (car.Event === 5 || car.Event === "跨越禁止變換車道線偵測") car.Event = 5
 		else if (car.Event === 6 || car.Event === "車輛未禮讓行人偵測") car.Event = 6
 		else if (car.Event === 7 || car.Event === "違規(臨時)停車偵測") car.Event = 7
 		else;
-		/*console.log('car.PlateNumber')
-		console.log(typeof(car.PlateNumber))
-		console.log(car.PlateNumber)
-		*/
+
 		//用來放回存DB的資料
 		const saveBackDBValues = {
 			//"Event": car.Event,
@@ -202,13 +222,7 @@ export default function LoadJson({ cars, setCars }) {
 			"PlateNumber": car.PlateNumber,
 			"Checked": 1
 		};
-		/*
-		console.log('回存DB的saveBackDBValues內容')
-		console.log(saveBackDBValues)		
-		console.log('回存DB的saveBackDBValues的Checked內容')
-		console.log('saveBackDBValues.Checked')
-		console.log(saveBackDBValues.Checked)
-		*/
+
 
 
 
@@ -347,16 +361,17 @@ export default function LoadJson({ cars, setCars }) {
 
 	/******************************************
 	 * 修改
-	 * 要知道按下的是哪個row(car.number)並存到state中
-	 * 將此car.number的value存到formValues
-	 * 再將formValues更新seteditFormData
+	 * 1.要知道按下的是哪個car.ID並存到editCarNumber中
+	 * 2.將此car.ID的舊值存到formValues
+	 * 3.將formValues更新editFormData
+	 *
 	 ******************************************/
 	const handleEditclick = (event, car) => {
 		event.preventDefault()
 
 		//將要更新的car.number存在state中
 		seteditCarNumber(car.ID)
-		//用formValues去接所有car的value
+		//用formValues去接所有未修改的car's value
 		const formValues = {
 			ID: car.ID,
 			CreateAt: car.CreateAt,
@@ -385,7 +400,7 @@ export default function LoadJson({ cars, setCars }) {
 			BBwidth: car.BBwidth,
 			BBheight: car.BBheight
 		}
-		//將formValues更新至seteditFormData , 避免直接更改[cars,setCars]
+		//將formValues更新至editFormData , 避免直接更改[cars,setCars]
 		seteditFormData(formValues)
 	}
 
@@ -463,8 +478,10 @@ export default function LoadJson({ cars, setCars }) {
 		seteditCarNumber(null)
 	}
 	////////////////////////////////////////////////////////////////////////////
-	//刪除
-	//接收的參數為該車號的index 並將該row的[car]中移除
+	/*
+	* 刪除
+	* 接收的參數為該車號的index 並將該row的[car]中移除
+	*/
 	const handleDeleteClick = (carNumber) => {
 
 		let yes = window.confirm('確定刪除？');
@@ -499,6 +516,39 @@ export default function LoadJson({ cars, setCars }) {
 	*/
 
 	////////////////////////////////////////////////////////////////////////////
+	  {/**Pagination */}	
+	  //const [currentTableData, setcurrentTableData] = useState([]);
+
+	// const currentTableData = useMemo(() => {
+	// 	const firstPageIndex = (currentPage - 1) * PageSize; 	//0*10=0
+	// 	const lastPageIndex = firstPageIndex + PageSize;		//0+10=10
+	// 	return cars.slice(firstPageIndex, lastPageIndex);		//回傳cars的0~9元素
+	// 	}, [currentPage]);
+
+
+	//   const firstPageIndex = (currentPage - 1) * PageSize; 	//0*10=0
+	//   const lastPageIndex = firstPageIndex + PageSize;		//0+10=10
+	//   const data = cars.slice(firstPageIndex, lastPageIndex);	//回傳cars的0~9元素
+	// 	useEffect(async()=>{
+	// 		currentTableData =await cars.slice(firstPageIndex, lastPageIndex);		//回傳cars的0~9元素
+	// 	},[cars]
+	// 	) 
+	  
+	// setCars(testjson);
+		const firstPageIndex = (currentPage - 1) * PageSize; 	//0*10=0
+		const lastPageIndex = firstPageIndex + PageSize;		//0+10=10
+		const currentTableData = cars.slice(firstPageIndex, lastPageIndex);		//回傳cars的0~9元素
+		
+	  {/**Pagination */}
+	  ///////////////////////////////////////////////////////////////////////////
+
+	//   let imagesrc5 = cars.ImgName5
+	//   let imagesrc4 = cars.ImgName4
+	//   let camera_number = cars.CameraName
+
+
+
+
 	return (
 		<div>
 			<form onSubmit={handleEditFormSubmit}>
@@ -506,10 +556,10 @@ export default function LoadJson({ cars, setCars }) {
 					<table border="1" >
 						<thead>
 							<tr>
+								<th>項次</th>
 								<th>ID</th>
 								<th>攝影機</th>
 								<th>攝影機行向</th>
-								{/*<th>事件</th>*/}
 								<th>事件名稱</th>
 								<th>時間</th>
 								<th>縮圖1</th>
@@ -522,10 +572,13 @@ export default function LoadJson({ cars, setCars }) {
 						</thead>
 
 						<tbody>
-							{cars.map((car) => (
-								<Fragment>
+							{/********************************************************* */}
+							{ currentTableData.map((car,index) => (
+								 
+								<>
 									{editCarNumber === car.ID ? (
 										<EdittableRow
+											index={index}	
 											car={car}
 											editFormData={editFormData}
 											handleEditFormChange={handleEditFormChange}
@@ -533,6 +586,7 @@ export default function LoadJson({ cars, setCars }) {
 										/>
 									) : (
 										<ReadOnlyRow
+											index={index}	
 											car={car}
 											handleEditclick={handleEditclick}
 											handleDeleteClick={handleDeleteClick}
@@ -540,11 +594,24 @@ export default function LoadJson({ cars, setCars }) {
 
 										/>
 									)}
-								</Fragment>
 
-							))}
+								</>
+							))} 
+
+							{/********************************************************* */}
+							{/********************************************************* */}
+
 						</tbody>
-					</table>
+					</table >
+
+					 <Pagination
+						currentPage={currentPage}
+						totalCount={cars.length}
+						pageSize={PageSize}
+						onPageChange={page => setCurrentPage(page)}
+					/>
+					
+
 				</div>
 			</form>
 

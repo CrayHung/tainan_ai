@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { serverUrl } from '../../auth/cfg';
 import JsonToExcel from '../JsonToExcel/JsonToExcel';
 
+import MyTable2 from '../Tablelist/MyTable2';
+
 
 function Search() {
 
@@ -52,11 +54,16 @@ function Search() {
 
 
     function handleTimeChange(date) {
+
+        console.log('傳進來的date=')
+        console.log(date)
         let dataValues = [
             date.getFullYear(),
             date.getMonth() + 1,
             date.getDate(),
         ];
+        console.log('dataValues=')
+        console.log(dataValues)
         let str = ''
         let tmp_str = ''
         let tmp_date = dataValues[2]
@@ -67,6 +74,8 @@ function Search() {
         tmp_str = dataValues[0] + '-' + tmp_month + '-' + tmp_date + 'T00:00:00'
         str = tmp_str.toString()
         setStart(str)
+        console.log('start date=')
+        console.log(start)
 
     }
 
